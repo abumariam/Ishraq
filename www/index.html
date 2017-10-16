@@ -1,0 +1,3469 @@
+<!DOCTYPE html>
+<!--HTML5 doctype-->
+<html>
+    <head>
+    <title>Ishraq</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" type="text/css" href="lib/appframework/icons.css" />
+    <link rel="stylesheet" type="text/css" href="lib/appframework/af.ui.css" />
+    <script type="text/javascript" src="lib/jquery.min.js"></script>
+    <script type="text/javascript" src="lib/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="lib/jquery.mobile.min.js"></script>
+    <script type="text/javascript" src="lib/jquery.ui.touch-punch.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="lib/appframework/appframework.ui.min.js"></script>
+    <script>
+
+        function GameLoading() {
+            var isClicked = 0;
+            //var lastClickTime = 0;
+            $(document).ready(function () {
+
+                //document.addEventListener("deviceready", onDeviceReady, false);
+                //function onDeviceReady() {
+                //    document.addEventListener("backbutton", function (e) {
+
+                //        e.preventDefault();
+                //    }, false);
+                //}
+
+
+                ///////////////////  Back Button Implmentation
+                //// Wait for device API libraries to load
+                ////
+                //document.addEventListener("deviceready", onDeviceReady, false);
+                //// device APIs are available
+                ////
+                //function onDeviceReady() {
+                //    // Register the event listener
+                //    document.addEventListener("backbutton", onBackKeyDown, false);
+                //}
+
+                // Handle the back button
+                //
+                
+
+                //document.addEventListener("intel.xdk.device.ready", function () {
+                //    //this function intercepts the backbutton click. When user clicks the back button it fires the intel.xdk.device.hardware.back event.
+                //    intel.xdk.device.addVirtualPage();
+                //}, false);
+
+                //document.addEventListener("intel.xdk.device.hardware.back", function () {
+                //    //continue to grab the back button
+                //    intel.xdk.device.addVirtualPage();
+                //    if ($('.upage:visible').attr('id') === 'mainpage') {
+                //        navigator.app.exitApp();
+                //    } else {
+                //        // how to code default behavior?
+                //    }
+                //}, false);
+
+
+
+
+
+
+                //////////////
+
+
+                //pnl_LoginForm
+                $('#div_pages > :not(#pnlSplash)').hide();
+                $('#pnlSplash').appendTo('#div_pages');
+                setTimeout(function () {
+                    show_OnlyOneForm("pnl_LoginForm");
+                    //show_OnlyFormWithMenu('pnl_Cat1Levels');
+                }, 3000);
+            });
+        }
+
+        function onBackKeyDown() {
+            // Handle the back button
+            BackToLevel();
+        }
+
+        function show_OnlyOneForm(formName) {
+            $(document).ready(function () {
+                $('#div_pages > :not(#' + formName + ')').hide();
+                $('#' + formName + '').appendTo('#div_pages');
+                if (formName != "pnl_LoginForm") {
+                    document.getElementById("pnl_Menu").style.display = 'block';
+                    //document.getElementById("divinstructions").innerHTML = "";
+                    if (formName == "pnl_Categories") {
+                        document.getElementById("div_Settings").style.display = 'block';
+                    } else {
+                        document.getElementById("div_Settings").style.display = 'none';
+                    }
+
+                    document.getElementById("divID").style.background = "#E3F5FD url('content/screen00/Bg.png') no-repeat 100% 100%";
+                    document.getElementById("div_pages").style.background = "#E3F5FD url('content/screen00/Bg.png') no-repeat 100% 100%";
+                }
+            });
+        }
+
+        function show_OnlyFormWithMenu(formName) {
+            //            $(document).ready(function () {
+            $('#div_pages > :not(#' + formName + ')').hide();
+            $('#' + formName + '').appendTo('#div_pages');
+            //document.getElementById("divinstructions").innerHTML = "";
+            if (formName != "pnl_LoginForm") {
+                document.getElementById("pnl_Menu").style.display = 'block';
+                if (formName == "pnl_Categories" || formName == "pnl_Info" || formName == "pnl_About" || formName == "pnl_Instruct") {
+                    document.getElementById("div_Settings").style.display = 'block';
+                    document.getElementById("divusername").style.display = 'block';
+                } else {
+                    document.getElementById("div_Settings").style.display = 'none';
+                }
+                if (formName == "pnl_Splash" || formName == "pnl_LoginForm" || formName == "pnl_Categories" || formName == "pnl_Cat1Levels" || formName == "pnl_Cat2Levels" || formName == "pnl_Cat3Levels") {
+                    document.getElementById("div_pages").style.background = "#E3F5FD url('content/screen00/Bg.png') no-repeat 100% 100%";
+                    document.getElementById("divID").style.background = "#E3F5FD url('content/screen00/Bg.png') no-repeat 100% 100%";
+                    document.getElementById("divusername").style.display = 'block';
+                } else {
+                    document.getElementById("div_pages").style.background = "";
+                    document.getElementById("divID").style.background = "";
+                    document.getElementById("divusername").style.display = 'none';
+                }
+            }
+            //            });
+        }
+
+        function GotoStageLevelsForm(stageid) {
+
+            document.getElementById('currentStage').value = stageid;
+            GetLocalActiveLevels(stageid);
+            show_OnlyFormWithMenu("pnl_Cat" + stageid + "Levels");
+        }
+
+
+        //Existing Functions
+        function GotoRandomAccessPreLevels(topracticeid, isSpecifiedSample) {
+
+            score = 0;
+
+            document.getElementById("IsRandomAccess").value = 1;
+            document.getElementById("isSpecifiedSample").value = isSpecifiedSample;
+
+            if (topracticeid == 1) {
+
+                document.getElementById("currentStage").value = 1;
+
+                document.getElementById("currentPracitceLevel").value = "0";
+
+                if (isSpecifiedSample == 1) {
+                    document.getElementById("imgSamplePractice").src = "content/screen03/level1practice.gif"
+                    show_OnlyFormWithMenu('pnlSamplePractice');
+
+                    setTimeout(function () {
+                        show_OnlyFormWithMenu('pnlLevel1Practices');
+                        StartStage1LevelsView();
+                    }, 10000);
+
+                } else {
+                    show_OnlyFormWithMenu('pnlLevel1Practices');
+                    StartStage1LevelsView();
+                }
+
+            }
+            if (topracticeid == 2) {
+
+                document.getElementById("currentStage").value = 2;
+
+                document.getElementById("currentPracitceLevel").value = "0";
+
+
+                if (isSpecifiedSample == 1) {
+                    document.getElementById("imgSamplePractice").src = "content/screen03/level2practice.gif"
+                    show_OnlyFormWithMenu('pnlSamplePractice');
+
+                    setTimeout(function () {
+                        show_OnlyFormWithMenu('pnlLevel2StarPractice');
+                        level2Zero_start(0);
+                    }, 10000);
+
+                } else {
+                    show_OnlyFormWithMenu('pnlLevel2StarPractice');
+                    level2Zero_start(0);
+                }
+
+
+            }
+            if (topracticeid == 3) {
+
+                document.getElementById("currentStage").value = 3;
+
+                document.getElementById("currentPracitceLevel").value = "0";
+
+
+                if (isSpecifiedSample == 1) {
+                    document.getElementById("imgSamplePractice").src = "content/screen03/level3practice.gif"
+                    show_OnlyFormWithMenu('pnlSamplePractice');
+
+                    setTimeout(function () {
+                        show_OnlyFormWithMenu('pnlLevel3Practices');
+                        StartStage3LevelsView();
+                    }, 10000);
+
+                } else {
+                    show_OnlyFormWithMenu('pnlLevel3Practices');
+                    StartStage3LevelsView();
+                }
+
+            }
+
+
+        }
+
+        function GotoStage1Practice(levelid, src) {
+            if (src.indexOf("-a.png") > 0 || src.indexOf("/1.png") > 0 || src.indexOf("\1.png") > 0) {
+            } else {
+                return;
+            }
+
+            document.getElementById("currentStage").value = "1";
+            document.getElementById("currentPracitceLevel").value = levelid;
+
+            StartStage1LevelsView();
+            show_OnlyFormWithMenu('pnlLevel1Practices');
+
+            //document.getElementById("divinstructions").innerHTML = "اضغط على الصورة في الاسفل";
+            document.getElementById("divinstructions").style.display = 'block';
+            document.getElementById("divinstructions").innerHTML = "اضغط على الصورة 5 مرات";
+            setTimeout(function () {
+                document.getElementById("divinstructions").style.display = 'none';
+            }, 3000);
+        }
+
+        function GotoCamelPractice(levelid, src) {
+            if (src.indexOf("-a.png") > 0 || src.indexOf("/1.png") > 0 || src.indexOf("\1.png") > 0) {
+            } else {
+                return;
+            }
+            document.getElementById("currentStage").value = "2";
+            document.getElementById("currentPracitceLevel").value = levelid;
+            show_OnlyFormWithMenu('pnlLevel2CamelPractice');
+            level2Camel_start(levelid);
+
+            //document.getElementById("divinstructions").innerHTML = "اسحب الصورة في المكان المناسب لها";
+        }
+
+        function GotoStarPractice(levelid, src) {
+            if (src.indexOf("-a.png") > 0 || src.indexOf("/1.png") > 0 || src.indexOf("\1.png") > 0) {
+            } else {
+                return;
+            }
+            document.getElementById("currentStage").value = "2";
+            document.getElementById("currentPracitceLevel").value = levelid;
+            show_OnlyFormWithMenu('pnlLevel2StarPractice');
+            level2Star_start(levelid);
+            //document.getElementById("divinstructions").innerHTML = "اسحب الصورة في المكان المناسب لها";
+        }
+
+        function GotoPlanePractice(levelid, src) {
+
+            if (src.indexOf("-a.png") > 0 || src.indexOf("/1.png") > 0 || src.indexOf("\1.png") > 0) {
+            } else {
+                return;
+            }
+            document.getElementById("currentStage").value = "2";
+            document.getElementById("currentPracitceLevel").value = levelid;
+            show_OnlyFormWithMenu('pnlLevel2PlanePractice');
+            level2Plane_start(levelid);
+            document.getElementById("divinstructions").style.display = 'block';
+            document.getElementById("divinstructions").innerHTML = "اسحب الصورة في المكان المناسب لها";
+            setTimeout(function () {
+                document.getElementById("divinstructions").style.display = 'none';
+            }, 3000);
+        }
+
+        function GotoBirdPractice(levelid, src) {
+            if (src.indexOf("-a.png") > 0 || src.indexOf("/1.png") > 0 || src.indexOf("\1.png") > 0) {
+            } else {
+                return;
+            }
+            document.getElementById("currentStage").value = "2";
+            document.getElementById("currentPracitceLevel").value = levelid;
+            show_OnlyFormWithMenu('pnlLevel2BirdPractice');
+            level2Bird_start(levelid);
+            document.getElementById("divinstructions").style.display = 'block';
+            document.getElementById("divinstructions").innerHTML = "اسحب الصورة في المكان المناسب لها";
+            setTimeout(function () {
+                document.getElementById("divinstructions").style.display = 'none';
+            }, 3000);
+        }
+
+        function GotoBallPractice(levelid, src) {
+            if (src.indexOf("-a.png") > 0 || src.indexOf("/1.png") > 0 || src.indexOf("\1.png") > 0) {
+            } else {
+                return;
+            }
+            document.getElementById("currentStage").value = "2";
+            document.getElementById("currentPracitceLevel").value = levelid;
+            show_OnlyFormWithMenu('pnlLevel2BallPractice');
+
+
+
+            //"content/level02/pic2-4-r.png";
+            // "content/level02/pic2-4-l.png";
+            level2Ball_start(levelid, "content/level02/pic2-4-r.png", "content/level02/pic2-4-l.png");
+            document.getElementById("divinstructions").style.display = 'block';
+            document.getElementById("divinstructions").innerHTML = "اسحب الصورة في المكان المناسب لها";
+            setTimeout(function () {
+                document.getElementById("divinstructions").style.display = 'none';
+            }, 3000);
+        }
+        
+		function GotoDownPlanePractice(levelid, src) {
+            if (src.indexOf("-a.png") > 0 || src.indexOf("/1.png") > 0 || src.indexOf("\1.png") > 0) {
+            } else {
+                return;
+            }
+            document.getElementById("currentStage").value = "2";
+            document.getElementById("currentPracitceLevel").value = levelid;
+            show_OnlyFormWithMenu('pnlLevel2BallPractice');
+
+            level2Ball_start(levelid, "content/level02/pic2-7-r.png", "content/level02/pic2-7-l.png");
+            document.getElementById("divinstructions").style.display = 'block';
+            document.getElementById("divinstructions").innerHTML = "اسحب الصورة في المكان المناسب لها";
+            setTimeout(function () {
+                document.getElementById("divinstructions").style.display = 'none';
+            }, 3000);
+        }
+
+        function GotoFishPractice(levelid, src) {
+            if (src.indexOf("-a.png") > 0 || src.indexOf("/1.png") > 0 || src.indexOf("\1.png") > 0) {
+            } else {
+                return;
+            }
+            document.getElementById("currentStage").value = "2";
+            document.getElementById("currentPracitceLevel").value = levelid;
+            show_OnlyFormWithMenu('pnlLevel2FishPractice');
+            level2Fish_start(levelid);
+            document.getElementById("divinstructions").style.display = 'block';
+            document.getElementById("divinstructions").innerHTML = "اسحب الصورة في المكان المناسب لها";
+            setTimeout(function () {
+                document.getElementById("divinstructions").style.display = 'none';
+            }, 3000);
+        }
+
+        function GotoStage3Practice(levelid, src) {
+            if (src.indexOf("-a.png") > 0 || src.indexOf("/1.png") > 0 || src.indexOf("\1.png") > 0) {
+            } else {
+                return;
+            }
+
+            document.getElementById("currentStage").value = "3";
+            document.getElementById("currentPracitceLevel").value = levelid;
+
+            show_OnlyFormWithMenu('pnlLevel3Practices');
+            StartStage3LevelsView();
+
+            //document.getElementById("divinstructions").innerHTML = "اضغط على الصورة التي تظهر مباشرة";
+            document.getElementById("divinstructions").style.display = 'block';
+            document.getElementById("divinstructions").innerHTML = "اضغط على الصورة التي تظهر مباشرة";
+            setTimeout(function () {
+                document.getElementById("divinstructions").style.display = 'none';
+            }, 3000);
+        }
+
+        var tryF = function () {
+            // convert arguments to normal array
+            var args = [].slice.call(arguments, 0, arguments.length);
+
+            // if has function to execute
+            if (args.length > 0) {
+                var func = args[0];//alert(func);
+                try { func(); }
+                finally {
+
+                    // if has next function to execute
+                    if (args.length > 1) {
+                        tryF.apply(null, args.slice(1, args.length));
+                    }
+                }
+            }
+        }
+
+        function EnableDisableSound() {
+            var sound = document.getElementById("isSoundPlayed").value;
+            if (sound == 0) {
+                document.getElementById("idSound").src = "content/screen02/Sound.png";
+                sound = 1;
+            } else {
+                document.getElementById("idSound").src = "content/screen02/Sound-off.png";
+                sound = 0;
+            }
+            document.getElementById("isSoundPlayed").value = sound;
+        }
+
+        var userID;
+
+        function ShowComicResult(result) {
+
+            var logoImage = document.getElementById("imgLogo");
+
+            var strPath = "";
+            if (result == 0) {
+                strPath = "content/level01/error.png";
+                alert("#*#*Error*#*#*");
+            }
+            else if (result == 1) {
+                strPath = "content/level01/right.png"
+            }
+            else if (result == 2) {
+                strPath = "content/level01/wrong.png"
+            }
+            else if (result == 5) {
+                strPath = "content/level01/goodjob.png"
+            }
+
+            logoImage.setAttribute("src", strPath);
+            logoImage.style.display = "block";
+            setTimeout(function () {
+                logoImage.style.display = "none";
+            }, 1000);
+        }
+
+        //provide database name and version number
+        var request = indexedDB.open("glowDatabase", 1);
+        var db = null;
+
+        request.onupgradeneeded = function () {
+            //alert("starting");
+
+            db = request.result;
+            //alert(uname + "saving");
+
+            //create object store and define key property of the objects on that store i.e., primary index. Here "ID" is the key
+            var store = db.createObjectStore("glowDatabase_store", { keyPath: "ID", autoIncrement: false });
+            //define other properties of the objects of that store i.e., define other columns.
+            store.createIndex("name", "name", { unique: true });
+            store.createIndex("age", "age", { unique: false });
+
+
+            //create object store and define key property of the objects on that store i.e., primary index. Here "ID" is the key
+            var scoretable = db.createObjectStore("glowDatabase_score", { keyPath: "ID", autoIncrement: false });
+            //define other properties of the objects of that store i.e., define other columns.
+            scoretable.createIndex("userid", "userid", { unique: false });
+            scoretable.createIndex("username", "username", { unique: false });
+            scoretable.createIndex("stageid", "stageid", { unique: false });
+            scoretable.createIndex("practiceid", "practiceid", { unique: false });
+            scoretable.createIndex("score", "score", { unique: false });
+        }
+
+        request.onsuccess = function () {
+            //database connection established
+            //alert("database connection established");
+            db = request.result;
+        }
+
+        request.onerror = function () {
+            alert("An error occured while connecting to database");
+        }
+
+        function registeOrLoginUser() {
+            name = document.getElementById('txtName').value;
+            age = document.getElementById('txtAge').value;
+
+
+            var read_transition = db.transaction("glowDatabase_store", "readonly");
+            var store = read_transition.objectStore("glowDatabase_store");
+            var row = store.get(name);
+            row.onsuccess = function (evt) {
+                if (typeof row.result === "undefined") {
+                    var object1 = { name: name, age: age, ID: name };
+                    var write_transition = db.transaction("glowDatabase_store", "readwrite");
+                    var store = write_transition.objectStore("glowDatabase_store");
+                    store.put(object1);
+                    //alert(name + "new user saved");
+                } else {
+                    //alert("welcome: " + row.result.name);
+                }
+            }
+            row.onerror = function (evt) {
+                var object1 = { name: name, age: age, ID: name };
+                var write_transition = db.transaction("glowDatabase_store", "readwrite");
+                var store = write_transition.objectStore("glowDatabase_store");
+                store.put(object1);
+                //alert(name + "new user saved from error");
+            }
+
+            document.getElementById("userid").value = name;
+
+            if (name != "") {
+                document.getElementById("divusername").innerHTML = "مرحبا: " + name;
+            }
+            else {
+                document.getElementById("divusername").innerHTML = "";
+            }
+            resetAllActivities();
+            GetLocalActiveLevels(1);
+            ShowCategoriesForm();
+
+        }
+
+        function GetAllUserScoreData() {
+            var read_transition = db.transaction("glowDatabase_score", "readonly");
+            var store = read_transition.objectStore("glowDatabase_score");
+            var rows = store.openCursor()
+            rows.onsuccess = function (evt) {
+                var cursor = evt.target.result;
+                if (cursor) {
+                    //alert("Name is: " + cursor.value.username);
+                    //alert("ID is: " + cursor.key);
+                    //alert("score is: " + cursor.value.score);
+                    cursor.continue();
+                }
+            }
+        }
+
+        function resetAllActivities() {
+            //document.getElementById("imgSecondLevelImage").src = "content/screen02/second-level-lock.png";
+            //document.getElementById("imgThirdLevelImage").src = "content/screen02/third-level-lock.png";
+            document.getElementById("imgSecondLevelImage").src = "content/screen02/second-level.png";
+            document.getElementById("imgThirdLevelImage").src = "content/screen02/third-level.png";
+            for (i = 2; i <= 11; i++) {
+                document.getElementById("S1L" + (i)).src = "content/screen03/" + (i) + "-a.png";
+            }
+            for (i = 12; i <= 18; i++) {
+                document.getElementById("S2L" + (i)).src = "content/screen03/" + (i) + "-a.png";
+            }
+            for (i = 19; i <= 25; i++) {
+                document.getElementById("S3L" + (i)).src = "content/screen03/" + (i) + "-a.png";
+            }
+        }
+
+        function GetLocalActiveLevels(StageX) {
+            
+            document.getElementById("S1L1").src = "content/screen03/1-a.png";
+
+            var read_transition = db.transaction("glowDatabase_score", "readonly");
+            var store = read_transition.objectStore("glowDatabase_score");
+            var rows = store.openCursor();
+            var cindex = 1;
+            
+            rows.onsuccess = function (evt) {
+                var cursor = evt.target.result;
+
+                if (cursor) {
+                    //alert(cursor.toString());
+                    
+                    //var pid = cursor.value.practiceid;alert(cursor.key);
+                    
+                    if (cursor.value.userid == document.getElementById("userid").value) {
+						
+						//alert("stage: " + cursor.value.stageid + "   p: " + cursor.value.practiceid);
+
+//                        if (cursor.value.stageid == "1") {
+////                            if (cursor.value.practiceid == "1") {
+////
+////                            }
+////                            else {
+//
+//                                //alert("S" + cursor.value.stageid + "L" + cursor.value.practiceid + "   pid:" + pid);
+//                                document.getElementById("S" + cursor.value.stageid + "L" + cursor.value.practiceid).src = "content/screen03/" + cursor.value.practiceid + "-a.png";
+//
+//                                if (cursor.value.practiceid == 11) {
+//                                    //alert("11");
+//                                    document.getElementById("imgSecondLevelImage").src = "content/screen02/second-level.png";
+//                                    document.getElementById("S2L12").src = "content/screen03/12-a.png";
+//                                    document.getElementById('currentStage').value = "2";
+//                                    //alert("next");
+//                                }
+//
+//                            //}
+//                        }
+//                        else if (cursor.value.stageid == "2") {
+//                            //alert("lelve : " + cursor.value.practiceid);
+//                            document.getElementById("S" + cursor.value.stageid + "L" + cursor.value.practiceid).src = "content/screen03/" + cursor.value.practiceid + "-a.png";
+//
+//                            var added = parseInt(cursor.value.practiceid) + 1;
+//                            if (cursor.value.practiceid == 18) {
+//                                document.getElementById("imgThirdLevelImage").src = "content/screen02/third-level.png";
+//                                document.getElementById("S3L19").src = "content/screen03/19-a.png";
+//                                document.getElementById('currentStage').value = "3";
+//                            } else {
+//                                document.getElementById("S2L" + (added)).src = "content/screen03/" + (added) + "-a.png";
+//                            }
+//
+//                        }
+//                        else if (cursor.value.stageid == "3") {
+//                            document.getElementById("S" + cursor.value.stageid + "L" + cursor.value.practiceid).src = "content/screen03/" + cursor.value.practiceid + "-a.png";
+//
+//                            var added = parseInt(cursor.value.practiceid) + 1;
+//                            document.getElementById("S3L" + (added)).src = "content/screen03/" + (added) + "-a.png";
+//                        }
+						
+						document.getElementById("S" + cursor.value.stageid + "L" + cursor.value.practiceid).src = "content/screen03/" + cursor.value.practiceid + "-a.png";
+
+                        var added = parseInt(cursor.value.practiceid) + 1;
+                        document.getElementById("S" + cursor.value.stageid + "L" + (added)).src = "content/screen03/" + (added) + "-a.png";
+						
+                        cindex += 1;
+                    }
+
+                    cursor.continue();
+                    //if (cindex >= 11) { alert("_" + cursor.value.practiceid +  "__" + cindex); }
+                }
+                document.getElementById("S1L1").src = "content/screen03/1-a.png";
+
+                if (cindex == 1) { return; }
+                //                var strLevelID = "0";
+                //                if (cindex >= 10) { strLevelID = ""; }
+                //                var pid = strLevelID + (cindex);
+
+//                if (cindex >= 19) {
+//                    document.getElementById("S3L" + cindex).src = "content/screen03/" + cindex + "-a.png";
+//                } else if (cindex >= 12) {
+//                    document.getElementById("S2L" + cindex).src = "content/screen03/" + cindex + "-a.png";
+//                } else {
+//                    document.getElementById("S1L" + cindex).src = "content/screen03/" + cindex + "-a.png";
+//                }
+            }
+
+            document.getElementById("S1L1").src = "content/screen03/1-a.png";
+            document.getElementById("S2L12").src = "content/screen03/12-a.png";
+            document.getElementById("S3L19").src = "content/screen03/19-a.png";
+        }
+
+        function RegisterLocalScore() {
+            
+            var userId = document.getElementById('userid').value;
+            var userScore = document.getElementById('score').value;
+            var stageID = document.getElementById('currentStage').value;
+            var practiceid = document.getElementById('currentPracitceLevel').value;
+            var username = document.getElementById('txtName').value
+
+            var scoreid = "u" + (userId) + "s" + (stageID) + "p" + (practiceid);
+			//alert(scoreid);
+            var read_transition = db.transaction("glowDatabase_score", "readonly");
+            var store = read_transition.objectStore("glowDatabase_score");
+
+            var row = store.get(scoreid);
+
+            row.onsuccess = function (evt) {
+                
+                if (typeof row.result === "undefined") {
+                    
+                    var object1 = { ID: (scoreid), userid: (userId), username: (username), stageid: (stageID), practiceid: (practiceid), score: (userScore) };
+                    var write_transition = db.transaction("glowDatabase_score", "readwrite");
+                    var store = write_transition.objectStore("glowDatabase_score");
+                    store.put(object1);
+                    //alert("saved");
+                } else {
+                    //alert("old score is " + row.result.score + "   current score is:" + userScore);
+                    if (parseInt(row.result.score) < parseInt(userScore)) {
+                        //alert("updating");
+                        var object1 = { ID: (scoreid), userid: (userId), username: (username), stageid: (stageID), practiceid: (practiceid), score: (userScore) };
+                        var write_transition = db.transaction("glowDatabase_score", "readwrite");
+                        var store = write_transition.objectStore("glowDatabase_score");
+                        store.put(object1);
+                        //alert("updated");
+                    }
+                }
+                
+
+            }
+            row.onerror = function (evt) {
+                var object1 = { ID: (scoreid), userid: (userId), username: (username), stageid: (stageID), practiceid: (practiceid), score: (userScore) };
+                var write_transition = db.transaction("glowDatabase_score", "readwrite");
+                var store = write_transition.objectStore("glowDatabase_score");
+                store.put(object1);
+
+                //alert("saved with error");
+
+            }
+
+
+            document.getElementById('score').value = 0;
+            score = 0;
+            if (document.getElementById("isSoundPlayed").value == 1) {
+                if (userScore == 5) {
+                    var audio = new Audio("content/sounds/goodjob.m4a");
+                    audio.play();
+                    //ShowComicResult(5);
+                } else if (userScore >= 3 && userScore < 5) {
+                    var audio = new Audio("content/sounds/clamps.m4a");
+                    audio.play();
+                    //ShowComicResult(1);
+                } else if (userScore >= 0 && userScore < 3) {
+                    var audio = new Audio("content/sounds/tryagain.m4a");
+                    audio.play();
+
+                    //ShowComicResult(0);
+                }
+				else { }
+            }
+
+        }
+
+    </script>
+    <!--Splash Screen Related-->
+    <script>
+        function Splashing() {
+            setTimeout(function () {
+                window.location.href = "userlogin.html";
+            }, 5000);
+        }
+    </script>
+    <style>
+@media only screen and (max-width : 2048px) {
+.pnlLoginContainer {
+	background: url("content/screen01/Panel.png") no-repeat;
+	background-size: 95% 85%;
+}
+}
+
+/* -7- 900*1280   216ppi */
+@media only screen and (max-width : 1024px) {
+.pnlLoginContainer {
+	background: url("content/screen01/Panel.png") no-repeat;
+	background-size: 100% 93%;
+}
+.tblLoginContent {
+	/*margin-top:-20px;*/
+	margin-bottom: -40px;
+}
+.btnLoginBack {
+	margin-top: -30px;
+	width: 60px;
+	Height: 60px;
+}
+.tblLoginHeader img {
+	margin-left: -30px;
+	margin-Top: -30px;
+	Width: 80%;
+	height: 5%;
+}
+}
+
+/* -4- 768*1280   320ppi  &&& HTC Droid */
+@media only screen and (max-width : 768px) {
+.pnlLoginContainer {
+	background: url("content/screen01/Panel.png") no-repeat;
+	background-size: 95% 90%;
+}
+.tblLoginContent {
+	margin-Top: -40px;
+	margin-bottom: -30px;
+}
+.btnLoginBack {
+	margin-top: -20px;
+	width: 40px;
+	Height: 40px;
+}
+.tblLoginHeader img {
+	margin-left: -30px;
+	Width: 80%;
+	height: 5%;
+}
+}
+
+@media only screen and (max-width : 480px) {
+.pnlLoginContainer {
+	background: url("content/screen01/Panel.png") no-repeat;
+	background-size: 95% 85%;
+}
+}
+
+@media only screen and (max-width : 320px) {
+.pnlLoginContainer {
+	background: url("content/screen01/Panel.png") no-repeat;
+	background-size: 95% 85%;
+}
+}
+.rotator {
+	width: 100px;
+	height: 100px;
+	margin: 20px; /*background-color:teal;*/
+}
+.transition {
+	-webkit-transition: all 1000s linear;
+}
+.translateAnimationClass {
+	-webkit-transform: rotateX(43200deg) rotateY(14400deg);
+}
+.animation {
+	-webkit-animation: rotator 3s forwards;
+}
+ @-webkit-keyframes rotator {
+ 0% {
+ width: 100px;
+ height: 100px;
+ -webkit-transition: width 1s, height 1s, -webkit-transform 1s; /* Safari */
+ transition: width 1s, height 1s, transform 1s;
+}
+ 100% {
+ width: 250PX;
+ height: 250px;
+ -webkit-transform: rotate(360deg);
+ transform: rotate(360deg);
+}
+}
+</style>
+    <!--level2_Camel-->
+    <script>
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            ev.target.appendChild(document.getElementById(data));
+        }
+
+        var timeoutPeriod = 12000;
+        var maxTime = 0;
+        var maxRepeat = 0;
+        var repeatCount = 0;
+        var score = 0;
+        var startTime = Date.now();
+        var lastTime = Date.now();
+        var emptyimageURL = "content/level02/empty_star.png";
+        var fullimageURL = "content/level02/full_star.png";
+
+        function level2Camel_start(levelid) {
+            initializeCamel(levelid);
+        }
+
+        function initializeCamel(levelid) {
+            timeoutPeriod = 12000;
+            maxTime = 60000;
+            maxRepeat = 4;
+            startTime = Date.now();
+            lastTime = Date.now();
+            repeatCount = 0;
+
+            emptyimageURL = "content/level02/pic2-5-r.png";
+            fullimageURL = "content/level02/pic2-5-l.png";
+            document.getElementById("practiceFinished").value = 0;
+
+            Level2Camel_UpdateCells();
+        }
+
+        function Level2Camel_UpdateCells() {
+
+            var emptyImage = document.getElementById("img_emptyCamel");
+            var fullImage = document.getElementById("img_fullCamel");
+            emptyImage.setAttribute("src", emptyimageURL);
+            fullImage.setAttribute("src", fullimageURL);
+            emptyImage.setAttribute("opacity", 0.7);
+            fullImage.setAttribute("opacity", 1);
+
+            $("#img_fullCamel").draggable({ containment: "#pnlLevel2CamelPractice", scroll: false });
+            $("#div_emptyCamel").droppable({
+                accept: "#img_fullCamel",
+                classes: {
+                    "ui-droppable-active": "ui-state-active",
+                    "ui-droppable-hover": "ui-state-hover"
+                },
+                drop: function (ev, ui) {
+                    $(this)
+
+                    var currentTime = Date.now();
+
+                    var currentFullimageURL = document.getElementById("img_fullCamel").getAttribute("src");
+                    if (((currentTime - lastTime) <= (timeoutPeriod - 100)) && (currentFullimageURL == fullimageURL)) {
+                        var emptyimage = document.getElementById("img_emptyCamel");
+                        var fullimage = document.getElementById("img_fullCamel");
+
+                        emptyimage.setAttribute("src", emptyimageURL);
+                        fullimage.setAttribute("src", fullimageURL);
+
+                        for (i = 0; i <= 4; i++) {
+                            emptyimage.style.display = "none";
+                            setTimeout(function () {
+                                emptyimage.style.display = "block";
+                            }, 500);
+                        }
+
+                        score = score + 1;
+                        document.getElementById("score").value = score;
+                        if (repeatCount <= maxRepeat) {
+                            setTimeout(function () {
+                                ShowComicResult(1);
+                                fullImage.style.left = PrevLeft;
+                                fullImage.style.top = PrevTop;
+                            }, 500);
+                            setTimeout(Level2Camel_UpdateCells, 500);
+                        }
+                        else {
+
+                            document.getElementById("practiceFinished").value = 1;
+
+                            RegisterLocalScore();
+                            //ShowReportForm();
+                            setTimeout(function () {
+                                fullImage.style.left = 0;
+                                fullImage.style.top = 0;
+                                show_OnlyFormWithMenu("pnl_Cat2Levels");
+                                GetLocalActiveLevels(2);
+                            }, 2000);
+                            return;
+
+                        }
+                    }
+
+                }
+            });
+
+            repeatCount = repeatCount + 1;
+            lastTime = Date.now();
+
+            setTimeout(Level2Camel_TimeOut, timeoutPeriod);
+
+        }
+
+        function Level2Camel_TimeOut() {
+            var currentTime = Date.now();
+            if (((currentTime - lastTime) > (timeoutPeriod - 100)) && repeatCount <= maxRepeat) {
+                //TimeOut
+
+                ShowComicResult(2);
+                Level2Camel_UpdateCells();
+            } else if (((currentTime - lastTime) > (timeoutPeriod - 100)) && repeatCount > maxRepeat) {
+                if (document.getElementById("practiceFinished").value == 0) {
+                    ShowComicResult(2);
+
+                    var sscore = document.getElementById("score").value;
+                    if (sscore != 0) {
+                        RegisterLocalScore();
+                    }
+
+                    BackToLevel();
+                    var fullImage = document.getElementById("img_fullCamel");
+                    fullImage.style.left = 0;
+                    fullImage.style.top = 0;
+                }
+            }
+
+            return;
+        }
+
+    </script>
+    <!--level2_Camel-->
+    <!-- Level 2 Rect Script -->
+    <script>
+
+        function level2Rect_start(levelid) {
+
+            initializeRect(levelid);
+        }
+
+        function initializeRect(levelid) {
+            timeoutPeriod = 12000;
+            maxTime = 60000;
+            maxRepeat = 4;
+            startTime = Date.now();
+            lastTime = Date.now();
+            repeatCount = 0;
+
+            emptyimageURL = "content/level02/pic6.png";
+            fullimageURL = "content/level02/pic6.png";
+            document.getElementById("practiceFinished").value = 0;
+
+            Level2Rect_UpdateCells();
+        }
+
+        function Level2Rect_UpdateCells() {
+
+            var emptyImage = document.getElementById("div_emptyRect");
+            var fullImage = document.getElementById("img_fullRect");
+            emptyImage.setAttribute("src", emptyimageURL);
+            fullImage.setAttribute("src", fullimageURL);
+
+            $("#img_fullRect").draggable({ containment: "#pnlLevel2CamelPractice", scroll: false });
+            $("#div_emptyRect").droppable({
+                accept: "#img_fullRect",
+                classes: {
+                    "ui-droppable-active": "ui-state-active",
+                    "ui-droppable-hover": "ui-state-hover"
+                },
+                drop: function (ev, ui) {
+                    $(this)
+
+                    var currentTime = Date.now();
+
+                    var currentFullimageURL = document.getElementById("img_fullRect").getAttribute("src");
+                    if (((currentTime - lastTime) <= (timeoutPeriod - 100)) && (currentFullimageURL == fullimageURL)) {
+                        var emptyimage = document.getElementById("div_emptyRect");
+                        var fullimage = document.getElementById("img_fullRect");
+
+                        emptyimage.setAttribute("src", fullimageURL);
+                        fullimage.setAttribute("src", emptyimageURL);
+
+                        for (i = 0; i <= 4; i++) {
+                            emptyimage.style.display = "none";
+                            setTimeout(function () {
+                                emptyimage.style.display = "block";
+                            }, 1000);
+                        }
+
+                        score = score + 1;
+                        document.getElementById("score").value = score;
+                        if (repeatCount <= maxRepeat) {
+                            ShowComicResult(1);
+                            fullImage.style.left = PrevLeft;
+                            fullImage.style.top = PrevTop;
+                            setTimeout(Level2Rect_UpdateCells, 500);
+                        }
+                        else {
+                            document.getElementById("practiceFinished").value = 1;
+
+                            RegisterLocalScore();
+                            //ShowReportForm();
+                            setTimeout(function () {
+                                show_OnlyFormWithMenu("pnl_Cat2Levels");
+                                GetLocalActiveLevels(2);
+                                fullImage.style.left = 0;
+                                fullImage.style.top = 0;
+                            }, 2000);
+                            return;
+
+                        }
+                    }
+
+                }
+            });
+
+
+            repeatCount = repeatCount + 1;
+            lastTime = Date.now();
+
+            setTimeout(Level2Rect_TimeOut, timeoutPeriod);
+
+        }
+
+        function Level2Rect_TimeOut() {
+            var currentTime = Date.now();
+            if (((currentTime - lastTime) > (timeoutPeriod - 100)) && repeatCount <= maxRepeat) {
+                //TimeOut
+                ShowComicResult(2);
+
+                Level2Rect_UpdateCells();
+            } else if (((currentTime - lastTime) > (timeoutPeriod - 100)) && repeatCount > maxRepeat) {
+                if (document.getElementById("practiceFinished").value == 0) {
+
+                    ShowComicResult(2);
+                    var sscore = document.getElementById("score").value;
+                    if (sscore != 0) {
+                        RegisterLocalScore();
+                    }
+
+                    BackToLevel();
+                    var fullImage = document.getElementById("img_fullRect");
+                    fullImage.style.left = 0;
+                    fullImage.style.top = 0;
+                }
+            }
+
+            return;
+        }
+
+        function allowDropRect(ev) {
+            ev.preventDefault();
+        }
+
+        function dragRect(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function dropRect(ev) {
+
+            ev.preventDefault();
+            var currentTime = Date.now();
+
+            var currentFullimageURL = document.getElementById(ev.dataTransfer.getData("text")).getAttribute("src");
+            if (((currentTime - lastTime) <= (timeoutPeriod - 100)) && (currentFullimageURL == fullimageURL)) {
+                var emptyimage = document.getElementById("img_emptyRect");
+                var fullimage = document.getElementById("img_fullRect");
+
+
+                emptyimage.setAttribute("src", fullimageURL);
+                fullimage.setAttribute("src", emptyimageURL);
+
+                for (i = 0; i <= 4; i++) {
+                    emptyimage.style.display = "none";
+                    setTimeout(function () {
+                        emptyimage.style.display = "block";
+                    }, 1000);
+                }
+
+                score = score + 1;
+                document.getElementById("score").value = score;
+                if (repeatCount <= maxRepeat) {
+                    setTimeout(Level2Rect_UpdateCells, 2000);
+                }
+                else {
+                    //Practice Finished
+                    //alert(score);
+
+                    document.getElementById("practiceFinished").value = 1;
+
+
+                    RegisterLocalScore();
+                    //ShowReportForm();
+                    setTimeout(function () {
+                        show_OnlyFormWithMenu("pnl_Cat2Levels");
+                        GetLocalActiveLevels(2);
+                    }, 5000);
+                }
+            }
+        }
+    </script>
+    <!-- Level 2 Rect Script -->
+    <!-- Level 2 Plane Script -->
+    <script>
+
+        function level2Plane_start(levelid) {
+            initializePlane(levelid);
+        }
+
+        function initializePlane(levelid) {
+            timeoutPeriod = 12000;
+            maxTime = 60000;
+            maxRepeat = 4;
+            startTime = Date.now();
+            lastTime = Date.now();
+            repeatCount = 0;
+
+            emptyimageURL = "content/level02/pic2-1-r.png";
+            fullimageURL = "content/level02/pic2-1-l.png";
+
+            document.getElementById("practiceFinished").value = 0;
+            //setTimeout(Level2Plane_UpdateCells, timeoutPeriod);
+            Level2Plane_UpdateCells();
+        }
+
+        var PrevLeft = 0, PrevTop = 0;
+        function Level2Plane_UpdateCells() {
+
+            var emptyImage = document.getElementById("div_emptyPlane");
+            var emptyImageX = document.getElementById("img_emptyPlane");
+
+            var fullImage = document.getElementById("img_fullPlane");
+
+            fullImage.setAttribute("src", fullimageURL);
+            emptyImageX.setAttribute("src", emptyimageURL);
+
+            $("#img_fullPlane").draggable({ containment: "#pnlLevel2CamelPractice", scroll: false });
+            $("#div_emptyPlane").droppable({
+                accept: "#img_fullPlane",
+                classes: {
+                    "ui-droppable-active": "ui-state-active",
+                    "ui-droppable-hover": "ui-state-hover"
+                },
+                drop: function (ev, ui) {
+                    $(this)
+
+                    var currentTime = Date.now();
+
+                    var currentFullimageURL = document.getElementById("img_fullPlane").getAttribute("src");
+                    if (((currentTime - lastTime) <= (timeoutPeriod - 100)) && (currentFullimageURL == fullimageURL)) {
+                        var emptyimage = document.getElementById("img_emptyPlane");
+                        var fullimage = document.getElementById("img_fullPlane");
+
+                        emptyimage.setAttribute("src", emptyimageURL);
+                        fullimage.setAttribute("src", fullimageURL);
+
+                        for (i = 0; i <= 4; i++) {
+                            emptyimage.style.display = "none";
+                            setTimeout(function () {
+                                emptyimage.style.display = "block";
+                            }, 500);
+                        }
+
+                        score = score + 1;
+                        document.getElementById("score").value = score;
+                        if (repeatCount <= maxRepeat) {
+                            setTimeout(function () {
+                                ShowComicResult(1);
+                                fullImage.style.left = PrevLeft;
+                                fullImage.style.top = PrevTop;
+                            }, 500);
+                            setTimeout(Level2Plane_UpdateCells, 500);
+                        }
+                        else {
+                            document.getElementById("practiceFinished").value = 1;
+                            var israndom = document.getElementById("IsRandomAccess").value;
+                            if (israndom == 0) {
+                                RegisterLocalScore();
+                                setTimeout(function () {
+                                    show_OnlyFormWithMenu("pnl_Cat2Levels");
+                                    GetLocalActiveLevels(2);
+                                    fullImage.style.left = 0;
+                                    fullImage.style.top = 0;
+                                }, 2000);
+                                return;
+                            } else {
+                                if (document.getElementById("isSoundPlayed").value == 1) {
+                                    if (score == 5) {
+                                        var audio = new Audio("content/sounds/goodjob.m4a");
+                                        audio.play();
+                                    } else if (score >= 3 && score < 5) {
+                                        var audio = new Audio("content/sounds/clamps.m4a");
+                                        audio.play();
+                                    } else {
+                                        var audio = new Audio("content/sounds/tryagain.m4a");
+                                        audio.play();
+                                    }
+                                }
+                                setTimeout(function () {
+
+                                    //fullImage.style.left = 0;
+                                    //fullImage.style.top = 0;
+                                    
+                                    if (document.getElementById("isSpecifiedSample").value == 0) {
+                                        GotoRandomAccessPreLevels(3, 0);
+                                    } else {
+                                        BackToLevel();
+                                        var fullImage = document.getElementById("img_fullPlane");
+                                        fullImage.style.left = 0;
+                                        fullImage.style.top = 0;
+                                    }
+                                }, 2000);
+                                return;
+                            }  
+                        }
+                    }
+                }
+            });
+
+            repeatCount = repeatCount + 1;
+            //if (repeatCount <= maxRepeat) {
+                lastTime = Date.now();
+                setTimeout(Level2Plane_TimeOut, timeoutPeriod);
+            //}
+        }
+
+        function Level2Plane_TimeOut() {
+
+            var currentTime = Date.now();
+            if (((currentTime - lastTime) > (timeoutPeriod - 100)) && repeatCount <= maxRepeat) {
+                //TimeOut
+
+                ShowComicResult(2);
+                Level2Plane_UpdateCells();
+
+            } else if (((currentTime - lastTime) > (timeoutPeriod - 100)) && repeatCount > maxRepeat) {
+                if (document.getElementById("practiceFinished").value == 0) {
+
+                    ShowComicResult(2);
+
+                    var sscore = document.getElementById("score").value;
+                    if (sscore != 0) {
+                        RegisterLocalScore();
+                    }
+                    //alert("Finished");
+                    BackToLevel();
+
+                    var fullImage = document.getElementById("img_fullPlane");
+
+                    fullImage.style.left = 0;
+                    fullImage.style.top = 0;
+
+                }
+            }
+
+            return;
+
+        }
+
+    </script>
+    <!-- Level 2 Plane Script -->
+    <!-- Level 2 Bird Script -->
+    <script>
+
+        function level2Bird_start(levelid) {
+            initializeBird(levelid);
+        }
+
+        function initializeBird(levelid) {
+            timeoutPeriod = 12000;
+            maxTime = 60000;
+            maxRepeat = 4;
+            startTime = Date.now();
+            lastTime = Date.now();
+            repeatCount = 0;
+
+            emptyimageURL = "content/level02/pic2-6-r.png";
+            fullimageURL = "content/level02/pic2-6-l.png";
+            document.getElementById("practiceFinished").value = 0;
+
+            Level2Bird_UpdateCells();
+        }
+
+        function Level2Bird_UpdateCells() {
+
+            var emptyImage = document.getElementById("img_emptyBird");
+            var fullImage = document.getElementById("img_fullBird");
+            emptyImage.setAttribute("src", emptyimageURL);
+            fullImage.setAttribute("src", fullimageURL);
+            emptyImage.setAttribute("opacity", 0.7);
+            fullImage.setAttribute("opacity", 1);
+
+
+            $("#img_fullBird").draggable({ containment: "#pnlLevel2CamelPractice", scroll: false });
+            $("#div_emptyBird").droppable({
+                accept: "#img_fullBird",
+                classes: {
+                    "ui-droppable-active": "ui-state-active",
+                    "ui-droppable-hover": "ui-state-hover"
+                },
+                drop: function (ev, ui) {
+                    $(this)
+
+                    var currentTime = Date.now();
+
+                    var currentFullimageURL = document.getElementById("img_fullBird").getAttribute("src");
+                    if (((currentTime - lastTime) <= (timeoutPeriod - 100)) && (currentFullimageURL == fullimageURL)) {
+                        var emptyimage = document.getElementById("img_emptyBird");
+                        var fullimage = document.getElementById("img_fullBird");
+
+                        emptyimage.setAttribute("src", emptyimageURL);
+                        fullimage.setAttribute("src", fullimageURL);
+
+                        for (i = 0; i <= 4; i++) {
+                            emptyimage.style.display = "none";
+                            setTimeout(function () {
+                                emptyimage.style.display = "block";
+                            }, 500);
+                        }
+
+                        score = score + 1;
+                        document.getElementById("score").value = score;
+                        if (repeatCount <= maxRepeat) {
+                            setTimeout(function () {
+                                ShowComicResult(1);
+                                fullImage.style.left = PrevLeft;
+                                fullImage.style.top = PrevTop;
+                            }, 500);
+                            setTimeout(Level2Bird_UpdateCells, 500);
+                        }
+                        else {
+
+                            document.getElementById("practiceFinished").value = 1;
+
+
+                            RegisterLocalScore();
+                            //ShowReportForm();
+                            setTimeout(function () {
+                                show_OnlyFormWithMenu("pnl_Cat2Levels");
+                                GetLocalActiveLevels(2);
+                                fullImage.style.left = 0;
+                                fullImage.style.top = 0;
+                            }, 2000);
+                            return;
+
+                        }
+                    }
+
+                }
+            });
+
+
+            repeatCount = repeatCount + 1;
+            lastTime = Date.now();
+
+            setTimeout(Level2Bird_TimeOut, timeoutPeriod);
+
+        }
+
+        function Level2Bird_TimeOut() {
+            var currentTime = Date.now();
+            if (((currentTime - lastTime) > (timeoutPeriod - 100)) && repeatCount <= maxRepeat) {
+                //TimeOut
+                ShowComicResult(2);
+                Level2Bird_UpdateCells();
+            } else if (((currentTime - lastTime) > (timeoutPeriod - 100)) && repeatCount > maxRepeat) {
+                if (document.getElementById("practiceFinished").value == 0) {
+
+                    ShowComicResult(2);
+                    var sscore = document.getElementById("score").value;
+                    if (sscore != 0) {
+                        RegisterLocalScore();
+                    }
+
+                    BackToLevel();
+
+                    var fullImage = document.getElementById("img_fullPlane");
+                    fullImage.style.left = 0;
+                    fullImage.style.top = 0;
+                }
+            }
+
+            return;
+        }
+
+
+    </script>
+    <!-- Level 2 Bird Script -->
+    <!-- Level 2 Star Script -->
+    <script>
+
+        function level2Star_start(levelid) {
+            initializeStar(levelid);
+        }
+
+        function initializeStar(levelid) {
+            timeoutPeriod = 12000;
+            maxTime = 60000;
+            maxRepeat = 4;
+            startTime = Date.now();
+            lastTime = Date.now();
+            repeatCount = 0;
+
+            emptyimageURL = "content/level02/pic2-2-l.png";
+            fullimageURL = "content/level02/pic2-2-l.png";
+            document.getElementById("practiceFinished").value = 0;
+
+            Level2Star_UpdateCells();
+        }
+
+        //Existed Function--- just update
+        function Level2Star_UpdateCells() {
+
+            var emptyImage = document.getElementById("img_emptyStar");
+            var emptyImageX = document.getElementById("img_emptyStar");
+
+            var fullImage = document.getElementById("img_fullStar");
+            emptyImageX.setAttribute("src", emptyimageURL);
+            fullImage.setAttribute("src", fullimageURL);
+
+            $("#img_fullStar").draggable({ containment: "#pnlLevel2CamelPractice", scroll: false });
+            $("#div_emptyStar").droppable({
+                accept: "#img_fullStar",
+                classes: {
+                    "ui-droppable-active": "ui-state-active",
+                    "ui-droppable-hover": "ui-state-hover"
+                },
+                drop: function (ev, ui) {
+                    $(this)
+
+                    var currentTime = Date.now();
+
+                    var currentFullimageURL = document.getElementById("img_fullStar").getAttribute("src");
+                    if (((currentTime - lastTime) <= (timeoutPeriod - 100)) && (currentFullimageURL == fullimageURL)) {
+                        var emptyimage = document.getElementById("img_emptyStar");
+                        var fullimage = document.getElementById("img_fullStar");
+
+                        emptyimage.setAttribute("src", emptyimageURL);
+                        fullimage.setAttribute("src", fullimageURL);
+
+                        for (i = 0; i <= 4; i++) {
+                            emptyimage.style.display = "none";
+                            setTimeout(function () {
+                                emptyimage.style.display = "block";
+                            }, 500);
+                        }
+
+                        score = score + 1;
+                        document.getElementById("score").value = score;
+                        if (repeatCount <= maxRepeat) {
+                            setTimeout(function () {
+                                ShowComicResult(1);
+                                fullimage.style.left = PrevLeft;
+                                fullimage.style.top = PrevTop;
+                            }, 500);
+                            setTimeout(Level2Star_UpdateCells, 500);
+                        }
+                        else {
+                            document.getElementById("practiceFinished").value = 1;
+
+                            var israndom = document.getElementById("IsRandomAccess").value;
+                            if (israndom == 0) {
+                                RegisterLocalScore();
+                                setTimeout(function () {
+                                    //show_OnlyFormWithMenu("pnl_Cat2Levels");
+                                    BackToLevel();
+                                    GetLocalActiveLevels(2);
+
+                                    fullimage.style.left = 0;
+                                    fullimage.style.top = 0;
+                                    return;
+                                }, 2000);
+                            } else {
+                                if (document.getElementById("isSoundPlayed").value == 1) {
+                                    if (score == 5) {
+                                        var audio = new Audio("content/sounds/goodjob.m4a");
+                                        audio.play();
+                                    } else if (score >= 3 && score < 5) {
+                                        var audio = new Audio("content/sounds/clamps.m4a");
+                                        audio.play();
+                                    } else {
+                                        var audio = new Audio("content/sounds/tryagain.m4a");
+                                        audio.play();
+                                    }
+                                }
+                                setTimeout(function () {
+
+                                    if (document.getElementById("isSpecifiedSample").value == 0) {
+                                        GotoRandomAccessPreLevels(3, 0);
+
+                                        fullimage.style.left = 0;
+                                        fullimage.style.top = 0;
+
+                                        return;
+                                    } else {
+                                        BackToLevel();
+                                        var fullImage = document.getElementById("img_fullStar");
+                                        fullImage.style.left = 0;
+                                        fullImage.style.top = 0;
+                                        return;
+                                    }
+                                }, 2000);
+                                return;
+
+                            }
+                        }
+                    }
+
+                }
+            });
+
+            repeatCount = repeatCount + 1;
+            lastTime = Date.now();
+
+            setTimeout(Level2Star_TimeOut, timeoutPeriod);
+
+        }
+        
+		function Level2Star_TimeOut() {
+            var currentTime = Date.now();
+            if (((currentTime - lastTime) > (timeoutPeriod - 100)) && repeatCount <= maxRepeat) {
+                //TimeOut
+                ShowComicResult(2);
+                Level2Star_UpdateCells();
+            } else if (((currentTime - lastTime) > (timeoutPeriod - 100)) && repeatCount > maxRepeat) {
+                if (document.getElementById("practiceFinished").value == 0) {
+
+                    ShowComicResult(2);
+                    var sscore = document.getElementById("score").value;
+                    if (sscore != 0) {
+                        RegisterLocalScore();
+                    }
+
+                    BackToLevel();
+                    var fullImage = document.getElementById("img_fullStar");
+                    fullImage.style.left = 0;
+                    fullImage.style.top = 0;
+                }
+            }
+
+            return;
+        }
+
+
+    </script>
+    <!-- Level 2 Star Script -->
+    <!-- Level 2 Ball Script -->
+    <script>
+
+        function level2Ball_start(levelid, r, l) {
+            initializeBall(levelid, r, l);
+        }
+
+        function initializeBall(levelid, r, l) {
+            timeoutPeriod = 12000;
+            maxTime = 60000;
+            maxRepeat = 4;
+            startTime = Date.now();
+            lastTime = Date.now();
+            repeatCount = 1;
+
+            emptyimageURL = r;// "content/level02/pic2-4-r.png";
+            fullimageURL = l;// "content/level02/pic2-4-l.png";
+            document.getElementById("practiceFinished").value = 0;
+
+            Level2Ball_UpdateCells();
+        }
+
+        function Level2Ball_UpdateCells() {
+
+            var emptyImage = document.getElementById("img_emptyBall");
+            var fullImage = document.getElementById("img_fullBall");
+            emptyImage.setAttribute("src", emptyimageURL);
+            fullImage.setAttribute("src", fullimageURL);
+            emptyImage.setAttribute("opacity", 0.7);
+            fullImage.setAttribute("opacity", 1);
+
+
+            $("#img_fullBall").draggable({ containment: "#pnlLevel2CamelPractice", scroll: false });
+            $("#div_emptyBall").droppable({
+                accept: "#img_fullBall",
+                classes: {
+                    "ui-droppable-active": "ui-state-active",
+                    "ui-droppable-hover": "ui-state-hover"
+                },
+                drop: function (ev, ui) {
+                    $(this)
+
+                    var currentTime = Date.now();
+
+                    var currentFullimageURL = document.getElementById("img_fullBall").getAttribute("src");
+                    if (((currentTime - lastTime) <= (timeoutPeriod - 100)) && (currentFullimageURL == fullimageURL)) {
+                        var emptyimage = document.getElementById("img_emptyBall");
+                        var fullimage = document.getElementById("img_fullBall");
+
+                        emptyimage.setAttribute("src", emptyimageURL);
+                        fullimage.setAttribute("src", fullimageURL);
+
+                        for (i = 0; i <= 4; i++) {
+                            emptyimage.style.display = "none";
+                            setTimeout(function () {
+                                emptyimage.style.display = "block";
+                            }, 500);
+                        }
+
+                        score = score + 1;
+                        document.getElementById("score").value = score;
+                        if (repeatCount <= maxRepeat) {
+                            setTimeout(function () {
+                                ShowComicResult(1);
+                                fullImage.style.left = PrevLeft;
+                                fullImage.style.top = PrevTop;
+                            }, 500);
+                            setTimeout(Level2Ball_UpdateCells, 2000);
+
+                        }
+                        else {
+                            RegisterLocalScore();
+                            //ShowReportForm();
+                            setTimeout(function () {
+                                show_OnlyFormWithMenu("pnl_Cat2Levels");
+                                GetLocalActiveLevels(2);
+                                fullImage.style.left = 0;
+                                fullImage.style.top = 0;
+                            }, 2000);
+                            return;
+
+                        }
+                    }
+
+                }
+            });
+
+
+            repeatCount = repeatCount + 1;
+            lastTime = Date.now();
+
+            setTimeout(Level2Ball_TimeOut, timeoutPeriod);
+
+        }
+
+        function Level2Ball_TimeOut() {
+            var currentTime = Date.now();
+            if (((currentTime - lastTime) > (timeoutPeriod - 100)) && repeatCount <= maxRepeat) {
+                //TimeOut
+                ShowComicResult(2);
+                Level2Ball_UpdateCells();
+            } else if (((currentTime - lastTime) > (timeoutPeriod - 100)) && repeatCount > maxRepeat) {
+                ShowComicResult(2);
+                var sscore = document.getElementById("score").value;
+                if (sscore != 0) {
+                    RegisterLocalScore();
+                }
+                BackToLevel();
+                var fullImage = document.getElementById("img_fullBall");
+                fullImage.style.left = 0;
+                fullImage.style.top = 0;
+            }
+
+            return;
+        }
+
+
+    </script>
+    <!-- Level 2 Ball Script -->
+    <!-- Level 2 Fish Script -->
+    <script>
+
+        function level2Fish_start(levelid) {
+            initializeFish(levelid);
+        }
+
+        function initializeFish(levelid) {
+            timeoutPeriod = 12000;
+            maxTime = 60000;
+            maxRepeat = 4;
+            startTime = Date.now();
+            lastTime = Date.now();
+            repeatCount = 0;
+
+            emptyimageURL = "content/level02/pic2-3-r.png";
+            fullimageURL = "content/level02/pic2-3-l.png";
+            document.getElementById("practiceFinished").value = 0;
+
+            Level2Fish_UpdateCells();
+        }
+
+        function Level2Fish_UpdateCells() {
+
+            var emptyImage = document.getElementById("img_emptyFish");
+            var fullImage = document.getElementById("img_fullFish");
+            emptyImage.setAttribute("src", emptyimageURL);
+            fullImage.setAttribute("src", fullimageURL);
+            emptyImage.setAttribute("opacity", 0.7);
+            fullImage.setAttribute("opacity", 1);
+
+            $("#img_fullFish").draggable({ containment: "#pnlLevel2CamelPractice", scroll: false });
+            $("#div_emptyFish").droppable({
+                accept: "#img_fullFish",
+                classes: {
+                    "ui-droppable-active": "ui-state-active",
+                    "ui-droppable-hover": "ui-state-hover"
+                },
+                drop: function (ev, ui) {
+                    $(this)
+
+                    var currentTime = Date.now();
+
+                    var currentFullimageURL = document.getElementById("img_fullFish").getAttribute("src");
+                    if (((currentTime - lastTime) <= (timeoutPeriod - 100)) && (currentFullimageURL == fullimageURL)) {
+                        var emptyimage = document.getElementById("img_emptyFish");
+                        var fullimage = document.getElementById("img_fullFish");
+
+                        emptyimage.setAttribute("src", emptyimageURL);
+                        fullimage.setAttribute("src", fullimageURL);
+
+                        for (i = 0; i <= 4; i++) {
+                            emptyimage.style.display = "none";
+                            setTimeout(function () {
+                                emptyimage.style.display = "block";
+                            }, 500);
+                        }
+
+                        score = score + 1;
+                        document.getElementById("score").value = score;
+                        if (repeatCount <= maxRepeat) {
+                            setTimeout(function () {
+                                ShowComicResult(1);
+                                fullImage.style.left = PrevLeft;
+                                fullImage.style.top = PrevTop;
+                            }, 500);
+                            setTimeout(Level2Fish_UpdateCells, 500);
+                        }
+                        else {
+                            document.getElementById("practiceFinished").value = 1;
+
+                            RegisterLocalScore();
+                            //  ShowReportForm();
+                            setTimeout(function () {
+                                show_OnlyFormWithMenu("pnl_Cat2Levels");
+                                GetLocalActiveLevels(2);
+                                fullImage.style.left = 0;
+                                fullImage.style.top = 0;
+                            }, 2000);
+                            return;
+
+                        }
+                    }
+
+                }
+            });
+
+
+            repeatCount = repeatCount + 1;
+            lastTime = Date.now();
+
+            setTimeout(Level2Fish_TimeOut, timeoutPeriod);
+        }
+
+        function Level2Fish_TimeOut() {
+            var currentTime = Date.now();
+            if (((currentTime - lastTime) > (timeoutPeriod - 100)) && repeatCount <= maxRepeat) {
+                //TimeOut
+                ShowComicResult(2);
+                Level2Fish_UpdateCells();
+            } else if (((currentTime - lastTime) > (timeoutPeriod - 100)) && repeatCount > maxRepeat) {
+                if (document.getElementById("practiceFinished").value == 0) {
+
+                    ShowComicResult(2);
+                    var sscore = document.getElementById("score").value;
+                    if (sscore != 0) {
+                        RegisterLocalScore();
+                    }
+
+                    BackToLevel();
+                    var fullImage = document.getElementById("img_fullFish");
+                    fullImage.style.left = 0;
+                    fullImage.style.top = 0;
+                }
+            }
+
+            return;
+        }
+
+
+    </script>
+    <!-- Level 2 Fish Script -->
+    <!--Categories Form-->
+    <script>
+
+        function ShowCategoriesForm() {
+            show_OnlyFormWithMenu("pnl_Categories");
+            //PlayMusic();
+        }
+
+    </script>
+    <style>
+        /* CSS responsive square grid */
+        .Category img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        @media only screen and (width : 2048px) {
+            .Category {
+                width: 30px;
+                height: 50px;
+            }
+        }
+
+        @media only screen and (width : 1024px) {
+            .Category {
+                width: 100%;
+                height: 70%;
+            }
+        }
+
+        @media only screen and (width : 768px) {
+            .Category {
+                width: 20px;
+                height: 20px;
+            }
+        }
+
+        @media only screen and (width : 480px) {
+            .Category {
+                width: 30px;
+                height: 30px;
+            }
+        }
+
+        @media only screen and (width : 320px) {
+            .Category {
+                width: 50px;
+                height: 40px;
+            }
+        }
+    </style>
+    <!--<categories form-->
+    <!--Menue Actions-->
+    <script>
+        var musictrack;
+        function PlayMusic() {
+            musictrack = new Audio("content/sounds/music.m4a");
+            myAudio.loop = true;
+            musictrack.play();
+        }
+        function EnableDisableMusic() {
+            var music = document.getElementById("isMusicPlayed").value;
+            if (music == 0) {
+                musictrack = new Audio("content/sounds/music.m4a");
+                musictrack.loop = true;
+                musictrack.play();
+                document.getElementById("idMusic").src = "content/screen02/Music.png";
+                document.getElementById("isMusicPlayed").value = 1;
+            } else {
+                //var beepOne = $("#beep-one")[0];
+                musictrack.pause();
+                musictrack.repeatCount = -1;
+                document.getElementById("idMusic").src = "content/screen02/Music-off.png";
+                document.getElementById("isMusicPlayed").value = 0;
+            }
+        }
+
+        function EnableDisableSound() {
+            var sound = document.getElementById("isSoundPlayed").value;
+            if (sound == 0) {
+                document.getElementById("idSound").src = "content/screen02/Sound.png";
+                sound = 1;
+            } else {
+                document.getElementById("idSound").src = "content/screen02/Sound-off.png";
+                sound = 0;
+            }
+            document.getElementById("isSoundPlayed").value = sound;
+        }
+
+        function GotoAbout() {
+            show_OnlyFormWithMenu("pnl_About");
+        }
+        function GotoInfo() {
+            show_OnlyFormWithMenu("pnl_Info");
+        }
+		function GotoInstruct() {
+			
+            show_OnlyFormWithMenu("pnl_Instruct");
+        }
+
+    </script>
+    <!--Menue Actions-->
+    <!--Categ 1 Levels-->
+    <script>
+        var images = new Array(2);
+        var sounds = new Array(2);
+
+        function GoHome() {
+            window.location.href = "categories.html";
+        }
+
+        function GotoPractice(practiceID) {
+            //window.location.href = "level1.html";
+            //var name = $(this).data('username');
+            if (practiceID != undefined && practiceID != null) {
+                window.location = 'level1.html?practiceid=' + practiceID + '&userid=' + document.getElementById("userid").value;
+            }
+        }
+
+        var finishedid = getParameterByName('finishedid');
+        var UserId = getParameterByName('userid');
+        function getParameterByName(name, url) {
+            if (!url) {
+                url = window.location.href;
+            }
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+
+        function LoadFinished() {
+            document.getElementById("userid").value = getParameterByName('userid');
+            //alert(document.getElementById("userid").value);
+            //alert(window.location.href);
+            GetLocalActiveLevels(1);
+        }
+
+    </script>
+    <style>
+        /* CSS responsive square grid */
+        .grid-photo {
+            border: 0px;
+            margin: 0px;
+        }
+
+            .grid-photo:after {
+                border: 0px;
+                content: '';
+                display: block;
+                clear: both;
+            }
+
+            .grid-photo li {
+                border: 0px;
+                position: relative;
+                display:;
+                float: left;
+                width: 15%;
+                /*padding-bottom: 10%;*/
+                margin-right: 5px;
+                margin-left: 5px;
+            }
+
+            .grid-photo .grid-photo-box {
+                position: absolute;
+                left: 1%;
+                right: 1%;
+                top: 1%;
+                bottom: 0;
+            }
+
+            .grid-photo img {
+                border: none;
+                width: 100%;
+                height: 100%;
+            }
+
+        @media only screen and (max-width : 2048px) {
+            .grid-photo li {
+                width: 22%;
+                padding-bottom: 19%;
+            }
+
+            .pnlContainerCat1LevelsContainer, .pnlContainerCat2LevelsContainer, .pnlContainerCat3LevelsContainer {
+                background: url(content/screen01/Panel.png) no-repeat;
+                background-size: 95% 85%;
+            }
+        }
+
+        /* -7- 900*1280   216ppi */
+        @media only screen and (max-width : 1024px) {
+            .grid-photo li {
+                width: 20%;
+                padding-bottom: 12.0%;
+            }
+
+            .pnlContainerCat1LevelsContainer, .pnlContainerCat2LevelsContainer, .pnlContainerCat3LevelsContainer {
+                background: url(content/screen01/Panel.png) no-repeat;
+                background-size: 100% 93%;
+            }
+
+            .tblCat1LevelsContent {
+                /*margin-top:-20px;*/
+                margin-bottom: -40px;
+            }
+
+            .btnCat1LevelsBack {
+                margin-top: 0px;
+                width: 60px;
+                Height: 60px;
+            }
+
+            .tblCat1LevelsHeader img {
+                margin-left: -30px;
+                margin-Top: -30px;
+                Width: 80%;
+                height: 5%;
+            }
+
+            .tblCat2LevelsHeader img {
+                margin-left: -30px;
+                margin-Top: -30px;
+                Width: 80%;
+                height: 5%;
+            }
+
+            .btnCat1LevelsClose {
+                Width: 100%;
+                height: 100%;
+            }
+
+            .liContainerCat1Levels {
+                margin-Top: -30px;
+            }
+        }
+
+        /* -4- 768*1280   320ppi  &&& HTC Droid */
+        @media only screen and (max-width : 768px) {
+            .grid-photo li {
+                width: 11.5%; /*padding-bottom: 12.0%;*/
+            }
+
+            .pnlContainerCat1LevelsContainer, .pnlContainerCat2LevelsContainer, .pnlContainerCat3LevelsContainer {
+                background: url(content/screen01/Panel.png) no-repeat;
+                background-size: 95% 90%;
+            }
+
+            .tblCat1LevelsContent {
+                margin-Top: -40px;
+                margin-bottom: -30px;
+            }
+
+            .btnCat1LevelsBack {
+                margin-top: -20px;
+                width: 40px;
+                Height: 40px;
+            }
+
+            .tblCat1LevelsHeader img {
+                margin-left: -30px;
+                Width: 80%;
+                height: 5%;
+            }
+
+            .tblCat2LevelsHeader img {
+                margin-left: -30px;
+                Width: 80%;
+                height: 5%;
+            }
+
+            .btnCat1LevelsClose {
+                Width: 100%;
+                height: 100%;
+            }
+        }
+
+        @media only screen and (max-width : 480px) {
+            .grid-photo li {
+                width: 20%; /*padding-bottom: 30%;*/
+            }
+
+            .pnlContainerCat1LevelsContainer, .pnlContainerCat2LevelsContainer, .pnlContainerCat3LevelsContainer {
+                background: url(content/screen01/Panel.png) no-repeat;
+                background-size: 95% 85%;
+            }
+        }
+
+        @media only screen and (max-width : 320px) {
+            .grid-photo li {
+                width: 20%; /*padding-bottom: 40%;*/
+            }
+
+            .pnlContainerCat1LevelsContainer, .pnlContainerCat2LevelsContainer, .pnlContainerCat3LevelsContainer {
+                background: url(content/screen01/Panel.png) no-repeat;
+                background-size: 95% 85%;
+            }
+        }
+    </style>
+    <!--Categ 1 Levels-->
+    <!--Categ 1 Levels Practices-->
+    <script>
+        var imgURL = "";
+        var stepIndex = 0;
+        var itemClicked = 0;
+        function practice1ClickOutside() {
+            //if (e.target != document.getElementById('content-area')) {
+            //    document.getElementById('content-area').innerHTML = 'You clicked outside.';
+            //} else {
+            //    document.getElementById('content-area').innerHTML = 'Display Contents';
+            //}
+            if (itemClicked == 0) {
+                ShowComicResult(2);
+            } else {
+                itemClicked = 0;
+            }
+        }
+
+        function FadInOut() {
+            //alert("sdsdsd");
+            $(document).ready(function () {
+
+                $("#div_Started").fadeIn(5000);
+                $("#div_Started").fadeOut(5000);
+                $("#div_Started").setAttribute("Display", "none");
+                //$("#div-Excercise").fadeIn(3000);
+                //$("#div-Excercise").setAttribute("Display", "block");
+            });
+        }
+        var imgPercent = 100;
+        
+		function StartStage1LevelsView() {
+
+            var practiceid = document.getElementById('currentPracitceLevel').value;
+
+            var PracticeImageName = "content/level01/pic1-" + practiceid + ".png";
+            //Intialize(0, "content/level01/pic01.png", 6000);
+
+            document.getElementById("practiceFinished").value = 0;
+
+            IntializeLevel1(0, PracticeImageName, 12000, practiceid);
+
+            startTime = Date.now();
+            lastTime = Date.now();
+            maxTime = 60000;
+            maxRepeat = 4;
+            repeatCount = 0;
+            setTimeout(Level1_TimeOut, timeoutPeriod);
+
+        }
+
+        function IntializeLevel1(Type, URL, Time, practiceID) {
+            imgURL = URL;
+            timeoutPeriod = Time;
+
+            stepIndex = 0;
+            var magnitude = 8;
+
+            if (practiceID >= 1 && practiceID <= 3) {
+                imgPercent = 100;
+            } else if (practiceID == 6 || practiceID == 7) {
+                imgPercent = 100;
+            } else if (practiceID >= 4 && practiceID <= 5) {
+                imgPercent = 85;
+            } else if (practiceID >= 8 && practiceID <= 11) {
+                imgPercent = 70;
+            }
+
+            if (Type == 0) {
+                //Random
+                var id = 0;
+                var exists = false;
+                for (index = 0; index < 5; index++) {
+                    exists = false;
+                    while (!exists) {
+                        id = Math.floor((Math.random() * magnitude) + 1);
+                        if (ids.indexOf(id) < 0 && id != 3 && id != 4) {
+                            ids[index] = id;
+                            //alert(id);
+                            exists = true;
+                        }
+                    }
+
+                    //alert(id);
+                }
+            }
+
+            for (i = 1; i <= cellCount; i++) {
+                document.getElementById(i).src = "";
+                document.getElementById(i).style.display = "none";
+                document.getElementById(i).style.width = imgPercent + "%";
+                document.getElementById(i).style.height = imgPercent + "%";
+
+            }
+
+            document.getElementById(ids[stepIndex]).src = imgURL;
+            document.getElementById(ids[stepIndex]).style.display = "block";
+        }
+
+        function Level1_UpdateCells(currentCellId) {
+            var nextCellIndex;
+            repeatCount += 1;
+
+            if (repeatCount > maxRepeat) {
+                nextCellIndex = -1;
+                stepIndex = -1;
+            } else {
+
+                for (i = 0 ; i < ids.length ; i++) {
+                    document.getElementById(ids[i]).src = "";
+                    if (currentCellId == ids[i] && i < ids.length - 1) {
+
+                        nextCellIndex = i + 1;
+                        stepIndex = stepIndex + 1;
+                    }
+                    else if (currentCellId == ids[ids.length - 1]) {
+                        if (repeatCount != maxRepeat) {
+                            repeatCount = repeatCount + 1;
+                            stepIndex = 0;
+                            nextCellIndex = 0;
+                        }
+                        else {
+                            nextCellIndex = -1; //Move To Next Example.
+                            stepIndex = -1;
+                        }
+                        break;
+                    }
+                }
+            }
+
+            if (nextCellIndex != -1) {
+                document.getElementById(currentCellId).src = "";
+                document.getElementById(currentCellId).style.display = "none";
+
+                document.getElementById(ids[nextCellIndex]).src = imgURL;
+                document.getElementById(ids[nextCellIndex]).style.display = "block";
+
+                lastTime = Date.now();
+                setTimeout(Level1_TimeOut, timeoutPeriod);
+            }
+            else {
+                //Excersise Finished
+                document.getElementById("practiceFinished").value = 1;
+
+                var currentTime = Date.now();
+                if (((currentTime - startTime) <= maxTime) && (score == (repeatCount * ids.length))) {
+
+                    var israndom = document.getElementById("IsRandomAccess").value;
+                    if (israndom == 0) {
+                        RegisterLocalScore();
+                        BackToLevel();
+                    } else {
+                        if (document.getElementById("isSoundPlayed").value == 1) {
+                            if (score == 5) {
+                                var audio = new Audio("content/sounds/goodjob.m4a");
+                                audio.play();
+                            } else if (score >= 3 && score < 5) {
+                                var audio = new Audio("content/sounds/clamps.m4a");
+                                audio.play();
+                            } else {
+                                var audio = new Audio("content/sounds/tryagain.m4a");
+                                audio.play();
+                            }
+                        }
+                        setTimeout(function () {
+                            if (document.getElementById("isSpecifiedSample").value == 0) {
+                                GotoRandomAccessPreLevels(2, 0);
+                            } else {
+                                BackToLevel();
+                            }
+                        }, 2000);
+
+                    }
+                }
+                else {
+                    var israndom = document.getElementById("IsRandomAccess").value;
+                    if (israndom == 0) {
+                        RegisterLocalScore();
+                        BackToLevel();
+
+                    } else {
+                        if (document.getElementById("isSpecifiedSample").value == 0) {
+                            GotoRandomAccessPreLevels(2, 0);
+                        } else {
+                            BackToLevel();
+                        }
+                    }
+                }
+            }
+            return;
+        }
+
+        function Level1_TimeOut() {
+            var currentTime = Date.now();
+            if ((currentTime - lastTime) >= (timeoutPeriod - 100) && repeatCount < maxRepeat) {
+                if (document.getElementById("practiceFinished").value == 0) {
+                    lastTime = Date.now();
+                    ShowComicResult(2);
+                    Level1_UpdateCells(ids[stepIndex]);
+                }
+            } else if ((currentTime - lastTime) >= (timeoutPeriod - 100) && repeatCount >= maxRepeat) {
+                if (document.getElementById("practiceFinished").value == 0) {
+                    ShowComicResult(2);
+                    var sscore = document.getElementById("score").value;
+                    if (sscore != 0) {
+                        RegisterLocalScore();
+                    }
+                    BackToLevel();
+                }
+            }
+            return;
+        }
+
+
+//        function ShowReportForm() {
+//            var userId = document.getElementById('userid').value;
+//            if (userId == 0) {
+//                return;
+//            }
+//            var xhr = new XMLHttpRequest();
+//            //xhr.open("POST", "http://localhost/Autizam/getuserreport.php?userid=" + userId, false);
+//            xhr.open("POST", "http://104.130.212.148/glow/getuserreport.php?userid=" + userId, false);
+//            xhr.onload = function () {
+//                var json_string = xhr.responseText;
+//                var json = JSON.parse(json_string);
+//
+//                var stageid = 0;
+//                var levelid = 0
+//                var score = 0;
+//
+//                var html = "<table width='100%' border='0'><tbody><tr>     <th scope='col'>الحالة</th>     <th scope='col'>النشاط</th>     <th scope='col'>المستوي</th></tr>";
+//                //html += "<tr><td width='120px' align='right' valign='middle'>المستوي</td><td align='center' valign='middle'><div class='table-thing with-label widget uib_w_60 d-margins SelectWidth' data-uib='app_framework/select' data-ver='1'>";
+//                for (i = 0; i < json.error_msg.length - 1; i++) {
+//                    stageid = json.error_msg[i].stage;
+//                    levelid = json.error_msg[i].PracticeID;
+//                    score = json.error_msg[i].score;
+//                    html += "<tr><td width='33%'><input value='" + stageid + "'></td><td  width='33%'><input value='" + levelid + "'></td><td  width='33%'><input value='" + score + "'></td></tr>";
+//                }
+//                html += "</tbody></table>";
+//                $(html).appendTo("#divreportcontainer");
+// 
+//            }
+//            xhr.send();
+//
+//            show_OnlyFormWithMenu("page_level_Report");
+//
+//        }
+
+        function BackToLevel() {
+            document.getElementById("IsRandomAccess").value = 0;
+            setTimeout(function () {
+                show_OnlyFormWithMenu("pnl_Cat" + document.getElementById('currentStage').value + "Levels");
+                GetLocalActiveLevels(document.getElementById('currentStage').value);
+            }, 1000);
+        }
+
+        function Level12_ItemClicked(currentCellId) {
+            itemClicked = 1;
+            ShowComicResult(1);
+            if (document.getElementById('currentStage').value == 1) {
+                Level1_ItemClicked(currentCellId);
+            } else {
+                Level2_ItemClicked(currentCellId);
+            }
+        }
+
+        function Level1_ItemClicked(currentCellId) {
+            itemClicked = 1;
+            if (!Level1_CheckClickedID(currentCellId))
+                return;
+            score = score + 1;
+            document.getElementById("score").value = score;
+            Level1_UpdateCells(currentCellId);
+        }
+
+        function Level1_CheckClickedID(currentCellId) {
+            if (currentCellId == ids[stepIndex]) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+        
+
+    </script>
+    <style>
+        /* CSS responsive square grid */
+        .grid-level {
+            border: none;
+            margin: 0px;
+        }
+
+            .grid-level:after {
+                border: none;
+                content: '';
+                display: block;
+                clear: both;
+                padding: 0, -10px, 0, -10px;
+            }
+
+            .grid-level li {
+                float: left;
+                border: none;
+                position: relative;
+                display: block;
+                height: 25vh;
+                padding-bottom: 12%;
+            }
+
+            .grid-level .grid-level-box {
+                border: none;
+                position: absolute;
+                left: 3px;
+                right: 3px;
+                top: 3px;
+                bottom: 3px;
+            }
+
+                .grid-level .grid-level-box:before {
+                    border: none;
+                    vertical-align: middle;
+                    width: 30%;
+                    height: 30%;
+                }
+
+        .grid-level-box img {
+            border-style: none;
+            text-align: center;
+            vertical-align: central;
+            width: 100%;
+            height: 100%;
+        }
+
+        .grid-level img {
+            /*height: 100%;*/
+            border-style: none;
+            text-align: center;
+            vertical-align: central;
+            width: 100%;
+            height: 100%;
+        }
+
+        @media only screen and (max-width : 2048px) {
+            .grid-level li {
+                width: 25vh;
+                padding-bottom: 10%;
+            }
+        }
+
+        @media only screen and (max-width : 1024px) {
+            .grid-level li {
+                width: 25vh;
+                height: 25vh;
+                padding-bottom: 10%;
+            }
+        }
+
+        @media only screen and (max-width : 768px) {
+            .grid-level li {
+                width: 25vh;
+                height: 25vh;
+                padding-bottom: 10%;
+            }
+        }
+
+        @media only screen and (max-width : 480px) {
+            .grid-level li {
+                width: 25vh;
+                height: 25vh;
+                padding-bottom: 10%;
+            }
+        }
+
+        @media only screen and (max-width : 320px) {
+            .grid-level li {
+                width: 25vh;
+                height: 25vh;
+                padding-bottom: 12%;
+            }
+        }
+
+        li {
+            list-style-image: none;
+            list-style: none;
+            padding: 7px;
+            margin-bottom: 5px;
+        }
+    </style>
+    <!--Categ 1 Levels Practices-->
+    <!--Categ 2 Levels Practices-->
+    <script>
+        var imgURL = "";
+        var maxTime = 0;
+        var maxRepeat = 0;
+        var stepIndex = 0;
+        //var score = 0;
+        var cellCount = 8;
+        var ids = new Array(5);
+
+        function Level2_UpdateCells(currentCellId) {
+            var nextCellIndex;
+            for (i = 0 ; i < ids.length ; i++) {
+                document.getElementById(ids[i]).src = "";
+                if (currentCellId == ids[i] && i < ids.length - 1) {
+                    nextCellIndex = i + 1;
+                    stepIndex = stepIndex + 1;
+                }
+                else if (currentCellId == ids[ids.length - 1]) {
+                    if (repeatCount != maxRepeat) {
+                        repeatCount = repeatCount + 1;
+                        stepIndex = 0;
+                        nextCellIndex = 0;
+                    }
+                    else {
+                        nextCellIndex = -1; //Move To Next Example.
+                        stepIndex = -1;
+                    }
+                    break;
+                }
+            }
+
+            if (nextCellIndex != -1) {
+                document.getElementById(currentCellId).src = "";
+                document.getElementById(ids[nextCellIndex]).src = imgURL;
+                lastTime = Date.now();
+                setTimeout(Level2_TimeOut, timeoutPeriod);
+            }
+            else {
+                //Excersise Finished
+                var currentTime = Date.now();
+                if (((currentTime - startTime) <= maxTime) && (score == (repeatCount * ids.length))) {
+
+                    RegisterLocalScore();
+
+                    //ShowReportForm();
+                    setTimeout(function () {
+                        GetLocalActiveLevels(2);
+                        show_OnlyFormWithMenu("pnl_Cat2Levels");
+                    }, 2000);
+
+                }
+                else {
+                    RegisterLocalScore();
+                    //ShowReportForm();
+
+                    setTimeout(function () {
+                        GetLocalActiveLevels(2);
+                        show_OnlyFormWithMenu("pnl_Cat2Levels");
+                    }, 2000);
+                }
+            }
+            return;
+        }
+
+        function Level2_ItemClicked(currentCellId) {
+            itemClicked = 1;
+            if (!Level2_CheckClickedID(currentCellId))
+                return;
+
+            score = score + 1;
+            document.getElementById("score").value = score;
+            Level2_UpdateCells(currentCellId);
+        }
+
+        function Level2_CheckClickedID(currentCellId) {
+            if (currentCellId == ids[stepIndex]) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+        function Level2_TimeOut() {
+            var currentTime = Date.now();
+            if ((currentTime - lastTime) >= (timeoutPeriod - 100)) {
+                lastTime = Date.now();
+                Level2_UpdateCells(ids[stepIndex]);
+            } else if (repeatCount >= maxRepeat) {
+                RegisterLocalScore();
+                setTimeout(function () {
+                    show_OnlyFormWithMenu("pnl_Cat2Levels");
+                    GetLocalActiveLevels(2);
+                    fullImage.style.left = 0;
+                    fullImage.style.top = 0;
+                }, 2000);
+            }
+            return;
+        }
+
+    </script>
+    <!--Categ 2 Levels Practices-->
+    <!--level 2 Puzzle-->
+    <script>
+        var successmatch = 0;
+        var images5 = new Array(5);
+        var sourcecells = new Array(5);
+        var targetcells = new Array(5);
+    </script>
+    <!--level 2 puzzle-->
+    <!--Level 3 Practice-->
+    <script>
+
+        function StartStage3LevelsView() {
+            IntializeLevel3(6000);
+
+            startTime = Date.now();
+            lastTime = Date.now();
+            maxTime = 60000;
+            maxRepeat = 5;
+            repeatCount = 1;
+            document.getElementById("practiceFinished").value = 0;
+
+            setTimeout(Level3_TimeOut, timeoutPeriod);
+
+        }
+
+        function IntializeLevel3(Time) {
+            timeoutPeriod = Time;
+            stepIndex = 0;
+            ids = ["right", "left"];
+            practiceid = document.getElementById("currentPracitceLevel").value;
+
+            var c2 = 1;//Math.floor((Math.random() * 2) + 1);
+            if (practiceid == 19) {
+                if (c2 == 1) {
+                    images = ["content/level03/pic3-1-r.png", "content/level03/pic3-1-l.png"];
+                } else {
+                    images = ["content/level03/pic3-1-l.png", "content/level03/pic3-1-r.png"];
+                }
+            } else if (practiceid == 20) {
+                if (c2 == 1) {
+                    images = ["content/level03/pic3-2-r.png", "content/level03/pic3-2-l.png"];
+                } else {
+                    images = ["content/level03/pic3-2-l.png", "content/level03/pic3-2-r.png"];
+                }
+
+            } else if (practiceid == 21) {
+                if (c2 == 1) {
+                    images = ["content/level03/pic3-3-r.png", "content/level03/pic3-3-l.png"];
+                } else {
+                    images = ["content/level03/pic3-3-l.png", "content/level03/pic3-3-r.png"];
+                }
+            } else if (practiceid == 22) {
+                if (c2 == 1) {
+                    images = ["content/level03/pic3-4-r.png", "content/level03/pic3-4-l.png"];
+                } else {
+                    images = ["content/level03/pic3-4-l.png", "content/level03/pic3-4-r.png"];
+                }
+            } else if (practiceid == 23) {
+                if (c2 == 1) {
+                    images = ["content/level03/pic3-5-r.png", "content/level03/pic3-5-l.png"];
+                } else {
+                    images = ["content/level03/pic3-5-l.png", "content/level03/pic3-5-r.png"];
+                }
+            } else if (practiceid == 24) {
+                if (c2 == 1) {
+                    images = ["content/level03/pic3-6-r.png", "content/level03/pic3-6-l.png"];
+                } else {
+                    images = ["content/level03/pic3-6-l.png", "content/level03/pic3-6-r.png"];
+                }
+            } else if (practiceid == 25) {
+                if (c2 == 1) {
+                    images = ["content/level03/pic3-7-r.png", "content/level03/pic3-7-l.png"];
+                } else {
+                    images = ["content/level03/pic3-7-l.png", "content/level03/pic3-7-r.png"];
+                }
+            } else if (practiceid == 0) {
+                if (c2 == 1) {
+                    images = ["content/level03/pic3-0-r.png", "content/level03/pic3-0-l.png"];
+                } else {
+                    images = ["content/level03/pic3-0-l.png", "content/level03/pic3-0-r.png"];
+                }
+            }
+
+            sounds = ["content/sounds/banana.m4a", "content/sounds/banana.m4a"];
+            document.getElementById(ids[0]).src = images[0];
+
+
+            document.getElementById(ids[1]).src = "";
+            document.getElementById(ids[1]).style.display = "none";
+
+            if (document.getElementById("isSoundPlayed").value == 1) {
+                var audio = new Audio(sounds[0]);
+                audio.play();
+            }
+        }
+
+        function Level3_UpdateCells(currentCellId, isClicked) {
+            var nextCellIndex;
+
+            if (repeatCount > maxRepeat) {
+                nextCellIndex = -1; //Move To Next Example.
+                stepIndex = -1;
+            } else {
+                for (i = 0 ; i < ids.length ; i++) {
+                    if (currentCellId == ids[i] && i < ids.length - 1) {
+                        nextCellIndex = i + 1;
+                        stepIndex = stepIndex + 1;
+                    }
+                    else if (currentCellId == ids[ids.length - 1]) {
+                        if (repeatCount != maxRepeat) {
+                            
+                            repeatCount = repeatCount + 1;
+                            stepIndex = 0;
+                            nextCellIndex = 0;
+                        }
+                        else {
+                            nextCellIndex = -1; //Move To Next Example.
+                            stepIndex = -1;
+                        }
+                        break;
+                    }
+                }
+            }
+
+            if (nextCellIndex != -1) {
+                if (document.getElementById("isSoundPlayed").value == 1) {
+                    var audio = new Audio(sounds[nextCellIndex]);
+                    audio.play();
+                }
+                if (isClicked == 1) {
+                    if (nextCellIndex == 1) {
+                        document.getElementById(currentCellId).src = images[0];
+                        document.getElementById(currentCellId).style.display = "block";
+
+                        document.getElementById(ids[nextCellIndex]).src = images[nextCellIndex];
+                        document.getElementById(ids[nextCellIndex]).style.display = "block";
+                    } else {
+                        document.getElementById(currentCellId).src = "";
+                        document.getElementById(ids[nextCellIndex]).src = "";
+                        document.getElementById(currentCellId).style.display = "none";
+                        document.getElementById(ids[nextCellIndex]).style.display = "none";
+
+                        //repeatCount += 1;
+
+                        ShowComicResult(1);
+                        
+                        setTimeout(function () {
+                            document.getElementById(currentCellId).src = "";
+                            document.getElementById(currentCellId).style.display = "none";
+
+                            var srcSwitch = images[0];
+                            images[0] = images[1];
+                            images[1] = srcSwitch;
+                             
+                            document.getElementById(ids[nextCellIndex]).src = images[nextCellIndex];
+                            document.getElementById(ids[nextCellIndex]).style.display = "block";
+                        }, 500);
+                         
+                    }
+                }
+             
+                lastTime = Date.now();
+                setTimeout(Level3_TimeOut, timeoutPeriod);
+            }
+            else {
+                //Excersise Finished
+                document.getElementById("practiceFinished").value = 1;
+
+                var currentTime = Date.now();
+                if (((currentTime - startTime) <= maxTime) && (score == (repeatCount * ids.length))) {
+                    var israndom = document.getElementById("IsRandomAccess").value;
+                    score = score / 2;
+                    if (israndom == 0) {
+                        document.getElementById('score').value = score;
+                        RegisterLocalScore();
+                        setTimeout(function () {
+                            show_OnlyFormWithMenu("pnl_Cat3Levels");
+                            GetLocalActiveLevels(3);
+                        }, 2000);
+                    } else {
+                        if (document.getElementById("isSoundPlayed").value == 1) {
+                            if (score == 5) {
+                                var audio = new Audio("content/sounds/goodjob.m4a");
+                                audio.play();
+                            } else if (score >= 3 && userScore < 5) {
+                                var audio = new Audio("content/sounds/clamps.m4a");
+                                audio.play();
+                            } else {
+                                var audio = new Audio("content/sounds/tryagain.m4a");
+                                audio.play();
+                            }
+                        }
+                        document.getElementById("IsRandomAccess").value = 0;
+                        setTimeout(function () {
+                            show_OnlyFormWithMenu('pnl_Cat3Levels');
+                        }, 2000);
+                    }
+                }
+                else {
+                    RegisterLocalScore();
+                    //ShowReportForm();
+                    setTimeout(function () {
+                        show_OnlyFormWithMenu("pnl_Cat3Levels");
+                        GetLocalActiveLevels(3);
+                    }, 2000);
+
+                }
+            }
+            return;
+        }
+
+
+        function Level3_Clicked(currentCellId) {
+            if (!Level3_CheckClickedID(currentCellId))
+                return;
+
+            score = score + 1;
+            document.getElementById("score").value = score;
+            Level3_UpdateCells(currentCellId , 1);
+        }
+
+        function Level3_CheckClickedID(currentCellId) {
+             
+            if (currentCellId == ids[stepIndex]) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+        function Level3_TimeOut() {
+            var currentTime = Date.now();
+            if ((currentTime - lastTime) >= (timeoutPeriod - 100) && repeatCount <= maxRepeat) {
+                if (document.getElementById("practiceFinished").value == 0) {
+                    lastTime = Date.now();
+                    ShowComicResult(2);
+                    
+                    repeatCount = repeatCount + 1;
+                    Level3_UpdateCells(ids[0], 0);
+                }
+            } else if ((currentTime - lastTime) >= (timeoutPeriod - 100) && repeatCount > maxRepeat) {
+                if (document.getElementById("practiceFinished").value == 0) {
+                    ShowComicResult(2);
+                    var sscore = document.getElementById("score").value;
+                    if (sscore != 0) {
+                        RegisterLocalScore();
+                    }
+                    BackToLevel();
+                }
+            }
+            return;
+        }
+        // New Functions
+
+        function level2Zero_start(levelid) {
+            initializeZero(levelid);
+        }
+
+        function initializeZero(levelid) {
+
+            timeoutPeriod = 12000;
+
+            maxTime = 60000;
+
+            maxRepeat = 4;
+
+            startTime = Date.now();
+
+            lastTime = Date.now();
+
+            repeatCount = 0;
+
+            document.getElementById("practiceFinished").value = 0;
+
+
+            emptyimageURL = "content/level02/pic2-0-l.png";
+
+            fullimageURL = "content/level02/pic2-0-r.png";
+
+
+
+            Level2Star_UpdateCells();
+
+        }
+        //$(function () {
+        //    $('#title-area').text(loadPageVar('practice'));
+        //});
+
+    </script>
+    <style>
+        /* CSS responsive square grid */
+        .level3-photo {
+            margin: 0px;
+        }
+
+            .level3-photo:after {
+                border: 0px;
+                content: '';
+                display: block;
+                clear: both;
+            }
+
+            .level3-photo li {
+                border: 0px;
+                position: relative;
+                display: block;
+                float: left;
+                width: 40%;
+                padding-bottom: 10%;
+            }
+
+            .level3-photo .level3-photo-box {
+                position: absolute;
+                left: 3px;
+                right: 3px;
+                top: 3px;
+                bottom: 3px;
+            }
+
+            .level3-photo img {
+                border: none;
+                width: 90%;
+                height: 90%;
+            }
+
+        @media only screen and (max-width : 2048px) {
+            .level3-photo li {
+                width: 50%;
+                padding-bottom: 30%;
+            }
+        }
+
+        @media only screen and (max-width : 1024px) {
+            .level3-photo li {
+                width: 40%;
+                margin-left: 10%;
+                padding-bottom: 0%;
+            }
+        }
+
+        @media only screen and (max-width : 768px) {
+            .level3-photo li {
+                width: 33%;
+                padding-bottom: 48%;
+            }
+        }
+
+        @media only screen and (max-width : 480px) {
+            .level3-photo li {
+                width: 50%;
+                padding-bottom: 120%;
+            }
+        }
+
+        @media only screen and (max-width : 320px) {
+            .level3-photo li {
+                width: 50%;
+                padding-bottom: 150%;
+            }
+        }
+    </style>
+    <!--Level 3 Practice-->
+    </head>
+    <body onload="javascript:GameLoading();">
+    <div class="view" id="divID"> 
+
+      <input id="practiceFinished" type="hidden" value="0" />
+      <input id="score" type="hidden" value="0" />
+      <input id="userid" type="hidden" value="0" />
+      <input id="username" type="hidden" value="" />
+      <input type="hidden" id="isMusicPlayed" value="0" />
+      <input type="hidden" id="isSoundPlayed" value="1" />
+      <input type="hidden" id="currentStage" value="1" />
+      <input type="hidden" id="IsRandomAccess" value="0" />
+      <input type="hidden" id="isSpecifiedSample" value="0" />
+      <input type="hidden" id="currentPracitceLevel" value="1" />
+      <div id="pnl_Menu" style="display: none; height: 64px; vertical-align: top; background-color: transparent;">
+        <table style="width: 100%;" cellpadding="0" cellspacing="0">
+          <tr> 
+            <td valign="top" align="left"><div align="right" id="divusername" style="border: 0px; margin-top: 20px; margin-right: 24px; margin-left: 30px; color: #660033; font-size: x-large;"> </div></td>
+            <td valign="top"><div align="right" id="divinstructions" style="border: 0px; margin-top: 20px; margin-right: 24px; color: #660033; font-size: x-large;" onclick="javascript:BackToLevel();"> </div></td>
+            <td width="40%" align="right" valign="Top" colspan="6"><div id="div_Settings" style="background-color: transparent;">
+                <table style="height: 32px; width: 100%; align: right" border="0">
+                <tr>
+                    <td><div id="divHome" style="border: 0px;"> <img src="content/screen02/Home.png" onclick="javascript:show_OnlyFormWithMenu('pnl_Categories');" height="64" width="64" /> </div></td>
+                    <td><div id="divSettings" style="border: 0px;"> <img src="content/screen02/Settings.png" onclick="javascript:show_OnlyOneForm('pnl_LoginForm');" height="64" width="64" /> </div></td>
+                    <!--<td><div id="divMusic" style="border: 0px;"> <img id="idMusic" src="content/screen02/Music-off.png" onclick="javascript:EnableDisableMusic();" height="64" width="64" /> </div></td>-->
+                    <td><div id="divSound" style="border: 0px;"> <img id="idSound" src="content/screen02/Sound.png" onclick="javascript:EnableDisableSound();" height="64" width="64" /> </div></td>
+                    <td><div id="divInstruct" style="border: 0px;"> <img id="imgInstruct" src="content/screen03/instruct.png" onclick="javascript:GotoInstruct();" height="64" width="64" /> </div></td>
+                    <td><div id="divReport" style="border: 0px;"> <img id="imgReport" src="content/screen03/report-show.png" onclick="javascript:GotoInfo();" height="64" width="64" /> </div></td>
+                    <td><div id="divInfo" style="border: 0px;"> <img src="content/screen02/Info.png" onclick="javascript:GotoAbout();" height="64" width="64" /> </div></td>
+                  </tr>
+              </table>
+              </div></td>
+          </tr>
+        </table>
+      </div>
+      <div id="div_pages" class="pages" style="width: 100%;">
+        <div id="pnl_Info" class="panel grid" data-title="" data-selected="true" style="text-align: center"> <img src="content/screen03/information.png" style="height: 80vh" border="0" /> </div>
+        <div id="pnl_About" class="panel grid" data-title="" data-selected="true" style="text-align: center"> <img src="content/screen03/about.png" style="height: 80vh" border="0" /> </div>
+        <div id="pnl_Instruct" class="panel grid" data-title="" data-selected="true" style="background-color: #E3F5FD;"> <img src="content/screen03/instru.png" style="height: 80vh" border="0" /> </div>
+<!--
+        <div id="page_level_Report" class="panel grid" data-title="Star" data-selected="true" onload="javascript:LoadReport();">
+          <div id="divreportcontainer" style="align-content: center; text-align: center; align-items: center"> </div>
+          <div style="text-align: center; "> <img id="btnLoginBack1" style="width:64px;height:64px;" src="content/screen03/back.png" onclick="javascript:show_OnlyFormWithMenu('pnl_Categories');" /> </div>
+        </div>
+-->
+        <div id="page_level2_Rect" class="panel grid" data-title="Star" data-selected="true" onload="javascript:level2Rect_start();">
+          <div class="grid grid-photo" style="align-content: center; text-align: center; align-items: center">
+            <table style="width:100%;Height:100%">
+              <tr>
+                <td width="40%"></td>
+                <td><div>
+                    <div id="div_emptyRect" style="border: 0; width: 128px; height: 128px;display:block;"> <img id="img_emptyRect" src="" style="width:200px;height:200px;" /> </div>
+                  </div></td>
+                <td width="30%"></td>
+              </tr>
+              <tr>
+                <td width="40%"></td>
+                <td><div> 
+                    <!--<div id="div_movingarrowRect"
+                                                        style="width: 128px; height: 128px; background-image: url(content/level02/Turn_sign.gif); background-repeat: repeat-x; transform: rotate(270deg); background-position: center;">
+                                                    </div>--> 
+                  </div></td>
+                <td width="30%"></td>
+              </tr>
+              <tr>
+                <td width="40%"></td>
+                <td><div style="width: 128px; height: 128px; align-content: center">
+                    <div id="div_fullRect"> <img id="img_fullRect" src=""
+                                             style="display:block;Height:128px;" /> </div>
+                  </div></td>
+                <td width="30%"></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div id="pnlLevel2BallPractice" class="panel grid" data-title="" data-selected="true">
+          <div class="grid grid-level" style="width: 100%; height: 100%;">
+            <table cellpadding="0" cellspacing="0" style="width:100%;Height:100%" border="0">
+              <tr height="30%">
+                <td width="33%"><div id="div_fullBall"> <img id="img_fullBall" src="" draggable="true" style="width:120px;Height:120px;" /> </div></td>
+                <td width="33%"></td>
+                <td width="33%"></td>
+              </tr>
+              <tr height="30%">
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr height="40%">
+                <td></td>
+                <td></td>
+                <td align="right" valign="bottom"><div id="div_emptyBall" style="border: 0; width: 100%; height: 100%;"> <img id="img_emptyBall" src="" style="width: 200px; height: 200px;" /> </div></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div id="pnlLevel2BirdPractice" class="panel grid" data-title="" data-selected="true">
+          <div class="grid grid-level" style="width: 100%; height: 100%;">
+            <table cellpadding="0" cellspacing="0" style="width:100%;Height:100%" border="0">
+              <tr height="40%">
+                <td width="33%"></td>
+                <td width="33%"></td>
+                <td width="33%" align="center" valign="bottom"><div id="div_emptyBird" style="border: 0;width:100%;height:100%;align-content:center;"> <img id="img_emptyBird" src="" style="width:180px;height:180px;" /> </div></td>
+              </tr>
+              <tr height="20%">
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr height="40%">
+                <td align="center" valign="top"><div id="div_fullBird"> <img id="img_fullBird" src="" draggable="true"
+                                         style=" width:180px;height:180px;" /> </div></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div id="pnlLevel2PlanePractice" class="panel grid" data-title="" data-selected="true">
+          <div class="grid grid-level" style="width: 100%; height: 100%;">
+            <table cellpadding="0" cellspacing="0" style="width:100%;Height:100%" border="0">
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr style="height:50%;">
+                <td width="40%" align="right" valign="bottom"><div id="div_fullPlane" style="width:100%;height:100%;"> <img id="img_fullPlane" src="" draggable="true" style="width: 200px; height: 200px; " /> </div></td>
+                <td width="20%"></td>
+                <td width="40%" align="center" valign="top"><div id="div_emptyPlane" style="border: 0;width:100%;height:100%;align-content:center;"> <img id="img_emptyPlane" src="" style="width:280px;height:280px; " /></div></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div id="pnlLevel2StarPractice" class="panel grid" data-title="" data-selected="true">
+          <div class="grid grid-level" style="width: 100%; height: 100%;">
+            <table cellpadding="0" cellspacing="0" style="width:100%;Height:100%" border="0">
+              <tr height="20%">
+                <td width="40%"></td>
+                <td width="20%"></td>
+                <td width="40%"></td>
+              </tr>
+              <tr height="30%">
+                <td align="right" valign="middle"><div id="div_fullStar" style="border: 0; width: 100%; height: 100%;"> <img id="img_fullStar" src="" draggable="true" style="width: 250px; height: 250px" /> </div></td>
+                <td></td>
+                <td align="left" valign="middle"><div id="div_emptyStar" style="border: 0; width: 100%; height: 100%;align-content:center;"> <img id="img_emptyStar" src="" style="width:250px; height:250px;" /> </div></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div id="pnlLevel2FishPractice" class="panel grid" data-title="" data-selected="true">
+          <div class="grid grid-level" style="width: 100%; height: 100%;">
+            <table cellpadding="0" cellspacing="0" style="width:100%;Height:100%" border="0">
+              <tr height="20%">
+                <td width="40%"></td>
+                <td width="20%"></td>
+                <td width="40%"></td>
+              </tr>
+              <tr height="30%">
+                <td align="center" valign="middle"><div id="div_emptyFish" style="border: 0; width: 100%; height: 100%;"> <img id="img_emptyFish" src="" style="width: 280px; height: 280px;" /> </div></td>
+                <td></td>
+                <td valign="middle" align="left"><div id="div_fullFish" style="border: 0; width: 100%; height: 100%;"> <img id="img_fullFish" src="" draggable="true" style="width: 180px; height: 180px;" /> </div></td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div id="pnlLevel2CamelPractice" class="panel grid" data-title="" data-selected="true">
+          <div class="grid grid-level" style="width: 100%; height: 100%;">
+            <table cellpadding="0" cellspacing="0" style="width:100%;Height:100%" border="0">
+              <tr height="25%">
+                <td width="25%"></td>
+                <td width="25%"></td>
+                <td width="25%"></td>
+                <td width="25%"></td>
+              </tr>
+              <tr height="25%">
+                <td align="center"><div id="div_fullCamel"> <img id="img_fullCamel" src="" draggable="true"
+                                         style="width:200px;height:200px;" /> </div></td>
+                <td></td>
+                <td></td>
+                <td width="25%"><div id="div_emptyCamel" style="border: 0;"> <img id="img_emptyCamel" src="" style="width:200px;height:200px;" /> </div></td>
+              </tr>
+              <tr height="25%">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div id="pnlLevel3Practices" class="panel grid" data-title="" data-selected="true">
+          <div class="grid level3-photo" style="width: 100%; height: 100%; text-align: center">
+            <table width="95%" style="margin-left: 3%; margin-right: 2%;">
+              <tr style="height: 75vh">
+                <td width="45%" align="center"><div id="div1" class="grid-level3-box" style="border: 0px; text-align: center"> <img id="left" src="" onclick="javascript:Level3_Clicked(this.id);" /> </div></td>
+                <td width="10%"></td>
+                <td width="45%" align="center"><div id="div2" class="grid-level3-box" style="border: 0px; text-align: center"> <img id="right" style="height: auto%;" src="" onclick="javascript:Level3_Clicked(this.id);" /> </div></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div id="pnlSamplePractice" class="panel grid" data-title="" data-selected="true" style="margin-top:0px;">
+          <div class="grid grid-level" style="width: 100%; margin-top: 10%;" >
+            <div id="divSamplePractice" class="grid-level-box" style="text-align: center;"> <img id="imgSamplePractice" src="" style="width:80%; height: 80%; margin-top: 5%; border: 9px solid #777" /> </div>
+          </div>
+        </div>
+        <div id="pnlLevel1Practices" class="panel grid" data-title="" data-selected="true" onclick="practice1ClickOutside()"
+                 style="margin-top:0px;">
+          <div class="grid grid-level" style="width: 100%; height: 85%; margin-top: 15%">
+            <li>
+              <div id="div1" class="grid-level-box" style="text-align: center;"> <img id="1" src="" onclick="javascript:Level12_ItemClicked(this.id);" /> </div>
+            </li>
+            <li>
+              <div id="div2" class="grid-level-box" style="text-align: center;"> <img id="2" src="" onclick="javascript:Level12_ItemClicked(this.id);" /> </div>
+            </li>
+            <li>
+              <div id="div3" class="grid-level-box" style="text-align: center;"> <img id="3" src="" onclick="javascript:Level12_ItemClicked(this.id);" /> </div>
+            </li>
+            <li>
+              <div id="div4" class="grid-level-box" style="text-align: center;"> <img id="4" src="" onclick="javascript:Level12_ItemClicked(this.id);" /> </div>
+            </li>
+            <li>
+              <div id="div5" class="grid-level-box" style="text-align: center;"> <img id="5" src="" onclick="javascript:Level12_ItemClicked(this.id);" /> </div>
+            </li>
+            <li>
+              <div id="div6" class="grid-level-box" style="text-align: center;"> <img id="6" src="" onclick="javascript:Level12_ItemClicked(this.id);" /> </div>
+            </li>
+            <li>
+              <div id="div7" class="grid-level-box" style="text-align: center;"> <img id="7" src="" onclick="javascript:Level12_ItemClicked(this.id);" /> </div>
+            </li>
+            <li>
+              <div id="div8" class="grid-level-box" style="text-align: center;"> <img id="8" src="" onclick="javascript:Level12_ItemClicked(this.id);" /> </div>
+            </li>
+            
+          </div>
+        </div>
+        <div id="pnl_Cat3Levels" class="panel grid" data-title="" data-selected="true">
+          <table style="width: 100%; height: 75%;;margin-top:5%;">
+            <tr>
+              <td style="width: 25%" valign="bottom"><div id="divlvl3Sample" style="border: 0px; width: 100%;"> <img src="content/screen02/pre-level.png" style="max-height: 100%; max-width: 100%; position: center"
+                                     onclick="javascript:GotoRandomAccessPreLevels(3,1);" /> </div>
+                <div style="border: 0px; width: 100%;"> <img src="content/screen02/third-level.png"
+                                     style="max-height: 100%; margin-top: 0%; max-width: 100%; position: center" /> </div></td>
+              <td width="2%"></td>
+              <td class="pnlContainerCat3LevelsContainer"><div style="margin-left: 5%; margin-top: -5%; width: 100%; height: 80%">
+                  <table style="width: 100%; height: 70%">
+                  <tr>
+                      <td valign="Top" width="10%"></td>
+                      <td align="center" style="margin-top: -20%;"><div style="border: 0px; margin-top: -15%;"> <img src="content/screen03/third-level-label.png" style="max-width: 100%;" /> </div></td>
+                      <td width="10%"></td>
+                    </tr>
+                  <tr>
+                      <td class="liContainer" colspan="3" valign="middle" align="center"><div class="grid grid-photo">
+                          <li style="list-style-image: none">
+                          <div id="div0" class="grid-photo-box" style="border: 0px;"> <img id="S3L19" src="content/screen03/19-a.png" onclick="javascript:GotoStage3Practice('19', this.src);" /> </div>
+                        </li>
+                          <li style="list-style-image: none">
+                          <div id="div1" class="grid-photo-box" style="border: 0px;"> <img id="S3L20" src="content/screen03/20-a.png" onclick="javascript:GotoStage3Practice('20', this.src);" /> </div>
+                        </li>
+                          <li style="list-style-image: none">
+                          <div id="div2" class="grid-photo-box" style="border: 0px;"> <img id="S3L21" src="content/screen03/21-a.png" onclick="javascript:GotoStage3Practice('21', this.src);" /> </div>
+                        </li>
+                          <li style="list-style-image: none">
+                          <div id="div3" class="grid-photo-box" style="border: 0px;"> <img id="S3L22" src="content/screen03/22-a.png" onclick="javascript:GotoStage3Practice('22', this.src);" /> </div>
+                        </li>
+                          <li style="list-style-image: none">
+                          <div id="div4" class="grid-photo-box" style="border: 0px;"> <img id="S3L23" src="content/screen03/23-a.png" onclick="javascript:GotoStage3Practice('23', this.src);" /> </div>
+                        </li>
+                          <li style="list-style-image: none">
+                          <div id="div5" class="grid-photo-box" style="border: 0px;"> <img id="S3L24" src="content/screen03/24-a.png" onclick="javascript:GotoStage3Practice('24', this.src);" /> </div>
+                        </li>
+                          <li style="list-style-image: none">
+                          <div id="div6" class="grid-photo-box" style="border: 0px;"> <img id="S3L25" src="content/screen03/25-a.png" onclick="javascript:GotoStage3Practice('25', this.src);" /> </div>
+                        </li>
+                        </div></td>
+                    </tr>
+                  <tr>
+                      <td></td>
+                      <td align="Right" valign="middle" style="margin-top: 200%"><img src="content/screen03/back.png" class="btnCat1LevelsBack" onclick="javascript:show_OnlyFormWithMenu('pnl_Categories');" /></td>
+                      <td></td>
+                    </tr>
+                </table>
+                </div></td>
+              <td style="width: 15%"></td>
+            </tr>
+          </table>
+        </div>
+        <div id="pnl_Cat2Levels" class="panel grid" data-title="" data-selected="true">
+          <table style="width: 100%; height: 75%;margin-top:5%;">
+            <tr>
+              <td style="width: 25%" valign="bottom"><div id="divlvl2Sample" style="border: 0px; width: 100%;"> <img src="content/screen02/pre-level.png" style="max-height: 100%; max-width: 100%; position: center"
+                                     onclick="javascript:GotoRandomAccessPreLevels(2,1);" /> </div>
+                <div style="border: 0px; width: 100%; margin-top: 0%"> <img src="content/screen02/second-level.png"
+                                     style="max-height: 100%; max-width: 100%; position: center" /> </div></td>
+              <td width="2%"></td>
+              <td class="pnlContainerCat2LevelsContainer"><div style="margin-left: 5%;  width: 100%; height: 80%">
+                  <table style="width: 100%; height: 70%;">
+                  <tr>
+                      <td valign="top" width="10%"></td>
+                      <td align="center"><div style="border: 0px; margin-top: -15%;"> <img src="content/screen03/second-level-label.png" style="max-width: 100%;" /> </div></td>
+                      <td width="10%"></td>
+                    </tr>
+                  <tr>
+                      <td class="liContainer2" colspan="3" valign="middle" align="center"><div class="grid grid-photo">
+                          <li style="list-style-image: none">
+                          <div id="div1" class="grid-photo-box" style="border: 0px;"> <img id="S2L12" src="content/screen03/12-a.png" onclick="javascript:GotoPlanePractice('12', this.src);" /> </div>
+                        </li>
+                          <li style="list-style-image: none">
+                          <div id="div2" class="grid-photo-box" style="border: 0px;"> <img id="S2L13" src="content/screen03/13-a.png" onclick="javascript:GotoStarPractice('13', this.src);" /> </div>
+                        </li>
+                          <li style="list-style-image: none">
+                          <div id="div3" class="grid-photo-box" style="border: 0px;"> <img id="S2L14" src="content/screen03/14-a.png" onclick="javascript:GotoFishPractice('14', this.src);" /> </div>
+                        </li>
+                          <li style="list-style-image: none">
+                          <div id="div4" class="grid-photo-box" style="border: 0px;"> <img id="S2L15" src="content/screen03/15-a.png" onclick="javascript:GotoCamelPractice('15', this.src);" /> </div>
+                        </li>
+                          <li style="list-style-image: none">
+                          <div id="div5" class="grid-photo-box" style="border: 0px;"> <img id="S2L16" src="content/screen03/16-a.png" onclick="javascript:GotoBirdPractice('16', this.src);" /> </div>
+                        </li>
+                          <li style="list-style-image: none">
+                          <div id="div6" class="grid-photo-box" style="border: 0px;"> <img id="S2L17" src="content/screen03/17-a.png" onclick="javascript:GotoBallPractice('17', this.src);" /> </div>
+                        </li>
+                          <li style="list-style-image: none">
+                          <div id="div7" class="grid-photo-box" style="border: 0px;"> <img id="S2L18" src="content/screen03/18-a.png" onclick="javascript:GotoDownPlanePractice('18', this.src);" /> </div>
+                        </li>
+                        </div></td>
+                    </tr>
+                  <tr>
+                      <td><div></div></td>
+                    </tr>
+                  <tr>
+                      <td></td>
+                      <td align="Right" valign="middle" style="margin-top: 100%;"><img src="content/screen03/back.png" class="btnCat1LevelsBack" onclick="javascript:show_OnlyFormWithMenu('pnl_Categories');" /></td>
+                      <td></td>
+                    </tr>
+                </table>
+                </div></td>
+              <td style="width: 15%"></td>
+            </tr>
+          </table>
+        </div>
+        <div id="pnl_Cat1Levels" class="panel grid" data-title="" data-selected="true">
+          <table style="width: 100%; height: 75%;;margin-top:2%;">
+            <tr>
+              <td style="width: 25%" valign="bottom"><div id="divlvl1Sample" style="border: 0px; width: 100%;"> <img src="content/screen02/pre-level.png" style="max-height: 100%; max-width: 100%; position: center"
+                                     onclick="javascript:GotoRandomAccessPreLevels(1,1);" /> </div>
+                <div id="divCategImage" style="border: 0px; width: 100%;"> <img src="content/screen02/first-level.png"
+                                     style="max-height: 100%;margin-top: 0%; max-width: 100%; position: center" /> </div></td>
+              <td width="2%"></td>
+              <td class="pnlContainerCat1LevelsContainer"><div data-title="" style="margin-left: 5%; width: 100%; height: 80%">
+                  <table style="width: 100%; height: 70%;">
+                  <tr>
+                      <td valign="Top" width="10%"></td>
+                      <td align="center" style="margin-top: -20%;"><div style=" border:0px; margin-top:-15%;"> <img src="content/screen03/first-level-label.png" style="max-width: 100%;" /> </div></td>
+                      <td width="10%"></td>
+                    </tr>
+                  <tr>
+                      <td class="liContainerCat1Levels" colspan="3" valign="middle" align="center"><div class="grid grid-photo">
+                          <li style="list-style-image: none">
+                          <div class="grid-photo-box" style="border: 0px;"> <img id="S1L1" src="content/screen03/1-a.png" onclick="javascript:GotoStage1Practice('1', this.src);" /> </div>
+                        </li>
+                          <li style="list-style-image: none">
+                          <div id="div2" class="grid-photo-box" style="border: 0px;"> <img id="S1L2" src="content/screen03/2-a.png" onclick="javascript:GotoStage1Practice('2', this.src);" /> </div>
+                        </li>
+                          <li style="list-style-image: none">
+                          <div id="div3" class="grid-photo-box" style="border: 0px;"> <img id="S1L3" src="content/screen03/3-a.png" onclick="javascript:GotoStage1Practice('3', this.src);" /> </div>
+                        </li>
+                          <li style="list-style-image: none">
+                          <div id="div4" class="grid-photo-box" style="border: 0px;"> <img id="S1L4" src="content/screen03/4-a.png" onclick="javascript:GotoStage1Practice('4', this.src);" /> </div>
+                        </li>
+                          <li style="list-style-image: none">
+                          <div id="div5" class="grid-photo-box" style="border: 0px;"> <img id="S1L5" src="content/screen03/5-a.png" onclick="javascript:GotoStage1Practice('5', this.src);" /> </div>
+                        </li>
+                          <li style="list-style-image: none">
+                          <div id="div6" class="grid-photo-box" style="border: 0px;"> <img id="S1L6" src="content/screen03/6-a.png" onclick="javascript:GotoStage1Practice('6', this.src);" /> </div>
+                        </li>
+                          <li style="list-style-image: none">
+                          <div id="div7" class="grid-photo-box" style="border: 0px;"> <img id="S1L7" src="content/screen03/7-a.png" onclick="javascript:GotoStage1Practice('7', this.src);" /> </div>
+                        </li>
+                          <li style="list-style-image: none">
+                          <div id="div8" class="grid-photo-box" style="border: 0px;"> <img id="S1L8" src="content/screen03/8-a.png" onclick="javascript:GotoStage1Practice('8', this.src);" /> </div>
+                        </li>
+                          <li style="list-style-image: none">
+                          <div id="div9" class="grid-photo-box" style="border: 0px;"> <img id="S1L9" src="content/screen03/9-a.png" onclick="javascript:GotoStage1Practice('9', this.src);" /> </div>
+                        </li>
+                          <li style="list-style-image: none">
+                          <div id="div10" class="grid-photo-box" style="border: 0px;"> <img id="S1L10" src="content/screen03/10-a.png" onclick="javascript:GotoStage1Practice('10', this.src);" /> </div>
+                        </li>
+                          <li style="list-style-image: none">
+                          <div id="div11" class="grid-photo-box" style="border: 0px;"> <img id="S1L11" src="content/screen03/11-a.png" onclick="javascript:GotoStage1Practice('11', this.src);" /> </div>
+                        </li>
+                        </div></td>
+                    </tr>
+                  <tr>
+                      <td></td>
+                      <td align="Right" valign="middle" style="margin-top: -100%"><img class="btnCat1LevelsBack" style="margin-top: 0%" src="content/screen03/back.png" onclick="javascript:show_OnlyFormWithMenu('pnl_Categories');" /></td>
+                      <td></td>
+                    </tr>
+                </table>
+                </div></td>
+              <li style="list-style-image: none">
+                <td style="width: 15%"></td>
+            </tr>
+          </table>
+        </div>
+        <div id="pnl_Categories" class="panel grid" data-title="" data-selected="true" style="background: #E3F5FD url('content/screen00/Bg.png') no-repeat 100% 100%;">
+          <div style="height: 80%; width: 100%; margin-top: 50px; display: inline-block; vertical-align: central; text-align: center;">
+            <table id="tblCategoriesContent" style="width: 100%; height: 100%;">
+              <tr height="25%">
+                <td></td>
+                <td></td>
+                <td width="15%" valign="bottom" style="margin-top: 20px;"><!--
+                                                    <div id="divPrelevel" class="Category" style="border: 0px;"> <img  style="width:150px;height:120px" id="imgPreLevel" src="content/screen02/pre-level.png"
+                                                                        onclick="javascript:GotoRandomAccessPreLevels(1,0);" /> </div>
+                                --></td>
+                <td></td>
+                <td></td>
+              </tr>
+              <tr>
+                <td width="15%" valign="Top"><div id="divThird" class="Category" style="border: 0px;"> <img id="imgThirdLevelImage" src="content/screen02/third-level.png" onclick="javascript:GotoStageLevelsForm(3);" /> </div></td>
+                <td width="10%" valign="bottom"></td>
+                <td width="15%" valign="bottom" style="margin-top: 50%;"><div id="divsecond" class="Category" style="border: 0px;"> <img id="imgSecondLevelImage" src="content/screen02/second-level.png" onclick="javascript:GotoStageLevelsForm(2);" /> </div></td>
+                <td width="10%" valign="bottom"></td>
+                <td width="15%" valign="Top"><div id="divFirst" class="Category" style="border: 0px;"> <img src="content/screen02/first-level.png" onclick="javascript:GotoStageLevelsForm(1);" /> </div></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div id="pnl_LoginForm" class="panel grid" data-title="" data-selected="true" style="background: #E3F5FD url('content/screen00/Bg.png') no-repeat 100% 100%;">
+          <table class="tblContent" style="width: 100%; height: 70%; margin-top: 100px;">
+            <tr>
+              <td style="width: 25%" valign="middle"><div id="divCharacter" style="border: 0px; width: 100%;"> <img src="content/screen01/caracter.png" style="max-height: 100%; max-width: 100%; position: center" /> </div></td>
+              <td width="10%"></td>
+              <td class="pnlLoginContainer"><div style="margin-left: 10px; width: 100%; height: 100%">
+                  <table style="width: 100%; height: 100%;">
+                  <tr>
+                      <td valign="Top" width="10%"><div class="btnClose" style="border: 0px; margin-left: -25px;"> 
+                          <!--<img src="content/screen03/close.png" style="max-width: 100%; max-height: 100%;" />--> 
+                        </div></td>
+                      <td align="center"><div class="tblLoginHeader" style="border: 0px; margin-top: -25px;"> <img src="content/screen01/about-child.png" style="max-width: 100%;" /> </div></td>
+                      <td width="10%"></td>
+                    </tr>
+                  <tr>
+                      <td class="liLoginContainer" colspan="3" valign="middle" align="center"><table width="90%" height="100%">
+                          <tr>
+                          <td><div style="margin-right: 10%; background: url('content/screen01/Name.png') no-repeat; text-align: left; background-size: contain;">
+                              <input value="" type="text" id="txtName" style="width: 66%; text-align: center; background: none; color: #FFFFFF;" />
+                            </div></td>
+                        </tr>
+                          <tr>
+                          <td><div style="margin-right: 10%; background: url('content/screen01/Age.png') no-repeat; text-align: left; background-size: contain;">
+                              <input value="" type="text" id="txtAge" style="width: 66%; text-align: center; background: none; color: #FFFFFF;" />
+                            </div></td>
+                        </tr>
+                          <tr>
+                          <td><img src="content/screen01/Done.png" onclick="javascript:registeOrLoginUser();" style="max-width: 100%;" /></td>
+                        </tr>
+                        </table></td>
+                    </tr>
+                  <tr>
+                      <td></td>
+                      <td align="Right" valign="middle"><img class="btnLoginBack" src="content/screen03/back.png" onclick="javascript:ShowCategoriesForm();" /></td>
+                      <td></td>
+                    </tr>
+                </table>
+                </div></td>
+              <td style="width: 15%"></td>
+            </tr>
+          </table>
+        </div>
+        <div id="pnl_Splash" class="panel grid"  data-title="" data-selected="true" 
+                style="width: 100%; height: 100%; background: #E3F5FD url('content/screen00/Bg.png') no-repeat 100% 100%;">
+          <table width="100%" height="100%">
+            <tr>
+              <td></td>
+            </tr>
+            <tr>
+              <td class="test" align="center" valign="middle"><img id="imgright" class="rotator animation" src="content/screen00/logo.png" /></td>
+            </tr>
+            <tr>
+              <td></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <img id="imgLogo" src="content/screen01/caracter.png" width="15%" style="display:none; left:43%; top:5%; z-index: 999; position: absolute" /> </div>
+</body>
+</html>
