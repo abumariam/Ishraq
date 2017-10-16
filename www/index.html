@@ -2979,18 +2979,18 @@
       <div id="pnl_Menu" style="display: none; height: 64px; vertical-align: top; background-color: transparent;">
         <table style="width: 100%;" cellpadding="0" cellspacing="0">
           <tr> 
-            <td valign="top" align="left"><div align="right" id="divusername" style="border: 0px; margin-top: 20px; margin-right: 24px; margin-left: 30px; color: #660033; font-size: x-large;"> </div></td>
-            <td valign="top"><div align="right" id="divinstructions" style="border: 0px; margin-top: 20px; margin-right: 24px; color: #660033; font-size: x-large;" onclick="javascript:BackToLevel();"> </div></td>
+            <td valign="top" align="left" width="20%"><div align="right" id="divusername" style="border: 0px; margin-top: 20px; margin-right: 24px; margin-left: 30px; color: #660033; font-size: x-large;"> </div></td>
+            <td valign="top" width="40%"><div align="right" id="divinstructions" style="border: 0px; margin-top: 20px; margin-right: 24px; color: #660033; font-size: x-large;" onclick="javascript:BackToLevel();"> </div></td>
             <td width="40%" align="right" valign="Top" colspan="6"><div id="div_Settings" style="background-color: transparent;">
                 <table style="height: 32px; width: 100%; align: right" border="0">
                 <tr>
-                    <td><div id="divHome" style="border: 0px;"> <img src="content/screen02/Home.png" onclick="javascript:show_OnlyFormWithMenu('pnl_Categories');" height="64" width="64" /> </div></td>
-                    <td><div id="divSettings" style="border: 0px;"> <img src="content/screen02/Settings.png" onclick="javascript:show_OnlyOneForm('pnl_LoginForm');" height="64" width="64" /> </div></td>
+                    <td><div id="divHome" style="border: 0px;"> <a href="javascript:show_OnlyFormWithMenu('pnl_Categories')"><img src="content/screen02/Home.png" height="64" width="64" /></a> </div></td>
+                    <td><div id="divSettings" style="border: 0px;"><a href="javascript:show_OnlyOneForm('pnl_LoginForm')"> <img src="content/screen02/Settings.png"  height="64" width="64" /></a> </div></td>
                     <!--<td><div id="divMusic" style="border: 0px;"> <img id="idMusic" src="content/screen02/Music-off.png" onclick="javascript:EnableDisableMusic();" height="64" width="64" /> </div></td>-->
-                    <td><div id="divSound" style="border: 0px;"> <img id="idSound" src="content/screen02/Sound.png" onclick="javascript:EnableDisableSound();" height="64" width="64" /> </div></td>
-                    <td><div id="divInstruct" style="border: 0px;"> <img id="imgInstruct" src="content/screen03/instruct.png" onclick="javascript:GotoInstruct();" height="64" width="64" /> </div></td>
-                    <td><div id="divReport" style="border: 0px;"> <img id="imgReport" src="content/screen03/report-show.png" onclick="javascript:GotoInfo();" height="64" width="64" /> </div></td>
-                    <td><div id="divInfo" style="border: 0px;"> <img src="content/screen02/Info.png" onclick="javascript:GotoAbout();" height="64" width="64" /> </div></td>
+                    <td><div id="divSound" style="border: 0px;"> <a href="javascript:EnableDisableSound()"><img id="idSound" src="content/screen02/Sound.png"  height="64" width="64" /></a> </div></td>
+                    <td><div id="divInstruct" style="border: 0px;"> <a href="javascript:GotoInstruct()"><img id="imgInstruct" src="content/screen03/instruct.png" height="64" width="64" /></a> </div></td>
+                    <td><div id="divReport" style="border: 0px;"> <a href="javascript:GotoInfo()"><img id="imgReport" src="content/screen03/report-show.png" height="64" width="64" /></a> </div></td>
+                    <td><div id="divInfo" style="border: 0px;"> <a href="javascript:GotoAbout()"><img src="content/screen02/Info.png"  height="64" width="64" /></a> </div></td>
                   </tr>
               </table>
               </div></td>
@@ -3218,8 +3218,7 @@
         <div id="pnl_Cat3Levels" class="panel grid" data-title="" data-selected="true">
           <table style="width: 100%; height: 75%;;margin-top:5%;">
             <tr>
-              <td style="width: 25%" valign="bottom"><div id="divlvl3Sample" style="border: 0px; width: 100%;"> <img src="content/screen02/pre-level.png" style="max-height: 100%; max-width: 100%; position: center"
-                                     onclick="javascript:GotoRandomAccessPreLevels(3,1);" /> </div>
+              <td style="width: 25%" valign="bottom"><div id="divlvl3Sample" style="border: 0px; width: 100%;"> <a href="javascript:GotoRandomAccessPreLevels(3,1)"><img src="content/screen02/pre-level.png" style="max-height: 100%; max-width: 100%; position: center"  /> </a></div>
                 <div style="border: 0px; width: 100%;"> <img src="content/screen02/third-level.png"
                                      style="max-height: 100%; margin-top: 0%; max-width: 100%; position: center" /> </div></td>
               <td width="2%"></td>
@@ -3257,7 +3256,7 @@
                     </tr>
                   <tr>
                       <td></td>
-                      <td align="Right" valign="middle" style="margin-top: 200%"><img src="content/screen03/back.png" class="btnCat1LevelsBack" onclick="javascript:show_OnlyFormWithMenu('pnl_Categories');" /></td>
+                      <td align="Right" valign="middle" style="margin-top: 200%"><a href="javascript:show_OnlyFormWithMenu('pnl_Categories')"><img src="content/screen03/back.png" class="btnCat1LevelsBack" /></a></td>
                       <td></td>
                     </tr>
                 </table>
@@ -3269,8 +3268,7 @@
         <div id="pnl_Cat2Levels" class="panel grid" data-title="" data-selected="true">
           <table style="width: 100%; height: 75%;margin-top:5%;">
             <tr>
-              <td style="width: 25%" valign="bottom"><div id="divlvl2Sample" style="border: 0px; width: 100%;"> <img src="content/screen02/pre-level.png" style="max-height: 100%; max-width: 100%; position: center"
-                                     onclick="javascript:GotoRandomAccessPreLevels(2,1);" /> </div>
+              <td style="width: 25%" valign="bottom"><div id="divlvl2Sample" style="border: 0px; width: 100%;"> <a href="javascript:GotoRandomAccessPreLevels(2,1)"><img src="content/screen02/pre-level.png" style="max-height: 100%; max-width: 100%; position: center" /></a> </div>
                 <div style="border: 0px; width: 100%; margin-top: 0%"> <img src="content/screen02/second-level.png"
                                      style="max-height: 100%; max-width: 100%; position: center" /> </div></td>
               <td width="2%"></td>
@@ -3311,7 +3309,7 @@
                     </tr>
                   <tr>
                       <td></td>
-                      <td align="Right" valign="middle" style="margin-top: 100%;"><img src="content/screen03/back.png" class="btnCat1LevelsBack" onclick="javascript:show_OnlyFormWithMenu('pnl_Categories');" /></td>
+                      <td align="Right" valign="middle" style="margin-top: 100%;"><a href="javascript:show_OnlyFormWithMenu('pnl_Categories')"><img src="content/screen03/back.png" class="btnCat1LevelsBack" /></a></td>
                       <td></td>
                     </tr>
                 </table>
@@ -3323,8 +3321,7 @@
         <div id="pnl_Cat1Levels" class="panel grid" data-title="" data-selected="true">
           <table style="width: 100%; height: 75%;;margin-top:2%;">
             <tr>
-              <td style="width: 25%" valign="bottom"><div id="divlvl1Sample" style="border: 0px; width: 100%;"> <img src="content/screen02/pre-level.png" style="max-height: 100%; max-width: 100%; position: center"
-                                     onclick="javascript:GotoRandomAccessPreLevels(1,1);" /> </div>
+              <td style="width: 25%" valign="bottom"><div id="divlvl1Sample" style="border: 0px; width: 100%;"> <a href="javascript:GotoRandomAccessPreLevels(1,1)"><img src="content/screen02/pre-level.png" style="max-height: 100%; max-width: 100%; position: center" /></a> </div>
                 <div id="divCategImage" style="border: 0px; width: 100%;"> <img src="content/screen02/first-level.png"
                                      style="max-height: 100%;margin-top: 0%; max-width: 100%; position: center" /> </div></td>
               <td width="2%"></td>
@@ -3374,7 +3371,7 @@
                     </tr>
                   <tr>
                       <td></td>
-                      <td align="Right" valign="middle" style="margin-top: -100%"><img class="btnCat1LevelsBack" style="margin-top: 0%" src="content/screen03/back.png" onclick="javascript:show_OnlyFormWithMenu('pnl_Categories');" /></td>
+                      <td align="Right" valign="middle" style="margin-top: -100%"><a href="javascript:show_OnlyFormWithMenu('pnl_Categories')"><img class="btnCat1LevelsBack" style="margin-top: 0%" src="content/screen03/back.png" /></a></td>
                       <td></td>
                     </tr>
                 </table>
@@ -3398,11 +3395,11 @@
                 <td></td>
               </tr>
               <tr>
-                <td width="15%" valign="Top"><div id="divThird" class="Category" style="border: 0px;"> <img id="imgThirdLevelImage" src="content/screen02/third-level.png" onclick="javascript:GotoStageLevelsForm(3);" /> </div></td>
+                <td width="15%" valign="Top"><div id="divThird" class="Category" style="border: 0px;"> <a href="javascript:GotoStageLevelsForm(3)"><img id="imgThirdLevelImage" src="content/screen02/third-level.png" /></a> </div></td>
                 <td width="10%" valign="bottom"></td>
-                <td width="15%" valign="bottom" style="margin-top: 50%;"><div id="divsecond" class="Category" style="border: 0px;"> <img id="imgSecondLevelImage" src="content/screen02/second-level.png" onclick="javascript:GotoStageLevelsForm(2);" /> </div></td>
+                <td width="15%" valign="bottom" style="margin-top: 50%;"><div id="divsecond" class="Category" style="border: 0px;"> <a href="javascript:GotoStageLevelsForm(2)"><img id="imgSecondLevelImage" src="content/screen02/second-level.png" /></a> </div></td>
                 <td width="10%" valign="bottom"></td>
-                <td width="15%" valign="Top"><div id="divFirst" class="Category" style="border: 0px;"> <img src="content/screen02/first-level.png" onclick="javascript:GotoStageLevelsForm(1);" /> </div></td>
+                <td width="15%" valign="Top"><div id="divFirst" class="Category" style="border: 0px;"> <a href="javascript:GotoStageLevelsForm(1)"><img src="content/screen02/first-level.png"/></a> </div></td>
               </tr>
             </table>
           </div>
@@ -3434,13 +3431,13 @@
                             </div></td>
                         </tr>
                           <tr>
-                          <td><img src="content/screen01/Done.png" onclick="javascript:registeOrLoginUser();" style="max-width: 100%;" /></td>
+                          <td><a href="javascript:registeOrLoginUser()"><img src="content/screen01/Done.png"  style="max-width: 100%;" /></a></td>
                         </tr>
                         </table></td>
                     </tr>
                   <tr>
                       <td></td>
-                      <td align="Right" valign="middle"><img class="btnLoginBack" src="content/screen03/back.png" onclick="javascript:ShowCategoriesForm();" /></td>
+                      <td align="Right" valign="middle"><a href="javascript:ShowCategoriesForm()"><img class="btnLoginBack" src="content/screen03/back.png" /></a></td>
                       <td></td>
                     </tr>
                 </table>
